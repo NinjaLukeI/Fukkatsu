@@ -15,6 +15,7 @@
 		52A0E85A293F818600E641B3 /* FukkatsuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E859293F818600E641B3 /* FukkatsuUITests.swift */; };
 		52A0E85C293F818600E641B3 /* FukkatsuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E85B293F818600E641B3 /* FukkatsuUITestsLaunchTests.swift */; };
 		52A0E86F293F91C600E641B3 /* MangaListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E86E293F91C600E641B3 /* MangaListView.swift */; };
+		52B4460729443D4E00F4CED6 /* SelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4460629443D4E00F4CED6 /* SelectButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		52A0E859293F818600E641B3 /* FukkatsuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FukkatsuUITests.swift; sourceTree = "<group>"; };
 		52A0E85B293F818600E641B3 /* FukkatsuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FukkatsuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		52A0E86E293F91C600E641B3 /* MangaListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListView.swift; sourceTree = "<group>"; };
+		52B4460629443D4E00F4CED6 /* SelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		52A0E832293F818200E641B3 = {
 			isa = PBXGroup;
 			children = (
+				52B4460629443D4E00F4CED6 /* SelectButton.swift */,
 				52A0E83D293F818300E641B3 /* Fukkatsu */,
 				52A0E84E293F818600E641B3 /* FukkatsuTests */,
 				52A0E858293F818600E641B3 /* FukkatsuUITests */,
@@ -273,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52A0E841293F818300E641B3 /* ContentView.swift in Sources */,
+				52B4460729443D4E00F4CED6 /* SelectButton.swift in Sources */,
 				52A0E83F293F818300E641B3 /* FukkatsuApp.swift in Sources */,
 				52A0E86F293F91C600E641B3 /* MangaListView.swift in Sources */,
 			);
@@ -433,6 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fukkatsu/Preview Content\"";
+				DEVELOPMENT_TEAM = APBZ83HC9L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -461,6 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fukkatsu/Preview Content\"";
+				DEVELOPMENT_TEAM = APBZ83HC9L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

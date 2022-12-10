@@ -17,17 +17,65 @@ struct ContentView: View {
     
     var body: some View {
         
-        ScrollView{
-            LazyVGrid(columns: columns, spacing: 5){
-                ForEach(0...2, id: \.self){ item in
-                    MangaListView()
+        NavigationView{
+            ScrollView{
+                LazyVGrid(columns: columns, spacing: 40){
+                    ForEach(0...2, id: \.self){ item in
+                        MangaListView()
+                        
+                    }
+                }
+                .padding(.horizontal)
+                    
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar{
+                ToolbarItem(placement: .principal) {
+                    VStack {
+                        Text("Discovery").font(.headline)
+                        
+                        SelectButton(isSelected: .constant(true), color: .green, text: "All")
+ 
+                    }
+                    
+                }
+        
+                
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            print("Search")
+                        } label: {
+                            Image(systemName: "magnifyingglass")
+                                .resizable()
+                                .frame(width: 18, height: 18)
+                        }
+                        
+
+                    
                     
                 }
             }
-            	
+            //Spacer()
+            
+            
+            
+            
         }
         
+        
+        
     }
+    
+    init() {
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        UINavigationBar.appearance().compactAppearance = navBarAppearance
+        
+    } //init
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
