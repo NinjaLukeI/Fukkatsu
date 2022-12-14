@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		529AA9392949338500943089 /* MangaListView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AA9382949338500943089 /* MangaListView-ViewModel.swift */; };
 		52A0E83F293F818300E641B3 /* FukkatsuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E83E293F818300E641B3 /* FukkatsuApp.swift */; };
 		52A0E841293F818300E641B3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E840293F818300E641B3 /* ContentView.swift */; };
 		52A0E843293F818600E641B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52A0E842293F818600E641B3 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 		52A0E85A293F818600E641B3 /* FukkatsuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E859293F818600E641B3 /* FukkatsuUITests.swift */; };
 		52A0E85C293F818600E641B3 /* FukkatsuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E85B293F818600E641B3 /* FukkatsuUITestsLaunchTests.swift */; };
 		52A0E86F293F91C600E641B3 /* MangaListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E86E293F91C600E641B3 /* MangaListView.swift */; };
+		52B2E1322947BD9800D2E7FA /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2E1312947BD9800D2E7FA /* Manga.swift */; };
 		52B4460729443D4E00F4CED6 /* SelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4460629443D4E00F4CED6 /* SelectButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		529AA9382949338500943089 /* MangaListView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MangaListView-ViewModel.swift"; sourceTree = "<group>"; };
 		52A0E83B293F818300E641B3 /* Fukkatsu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fukkatsu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A0E83E293F818300E641B3 /* FukkatsuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FukkatsuApp.swift; sourceTree = "<group>"; };
 		52A0E840293F818300E641B3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		52A0E859293F818600E641B3 /* FukkatsuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FukkatsuUITests.swift; sourceTree = "<group>"; };
 		52A0E85B293F818600E641B3 /* FukkatsuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FukkatsuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		52A0E86E293F91C600E641B3 /* MangaListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListView.swift; sourceTree = "<group>"; };
+		52B2E1312947BD9800D2E7FA /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		52B4460629443D4E00F4CED6 /* SelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,10 +79,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		529AA9372949331B00943089 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				52B2E1312947BD9800D2E7FA /* Manga.swift */,
+				529AA9382949338500943089 /* MangaListView-ViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		52A0E832293F818200E641B3 = {
 			isa = PBXGroup;
 			children = (
-				52B4460629443D4E00F4CED6 /* SelectButton.swift */,
 				52A0E83D293F818300E641B3 /* Fukkatsu */,
 				52A0E84E293F818600E641B3 /* FukkatsuTests */,
 				52A0E858293F818600E641B3 /* FukkatsuUITests */,
@@ -99,6 +111,8 @@
 		52A0E83D293F818300E641B3 /* Fukkatsu */ = {
 			isa = PBXGroup;
 			children = (
+				529AA9372949331B00943089 /* Models */,
+				52B4460629443D4E00F4CED6 /* SelectButton.swift */,
 				52A0E870293F91D400E641B3 /* Views */,
 				52A0E83E293F818300E641B3 /* FukkatsuApp.swift */,
 				52A0E842293F818600E641B3 /* Assets.xcassets */,
@@ -277,7 +291,9 @@
 			files = (
 				52A0E841293F818300E641B3 /* ContentView.swift in Sources */,
 				52B4460729443D4E00F4CED6 /* SelectButton.swift in Sources */,
+				52B2E1322947BD9800D2E7FA /* Manga.swift in Sources */,
 				52A0E83F293F818300E641B3 /* FukkatsuApp.swift in Sources */,
+				529AA9392949338500943089 /* MangaListView-ViewModel.swift in Sources */,
 				52A0E86F293F91C600E641B3 /* MangaListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct MangaListView: View {
+    
+    @StateObject private var vm = MangaListModel()
+    
+    
+    
     var body: some View {
         VStack{
             Image("op")
@@ -24,7 +29,7 @@ struct MangaListView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .font(.caption)
                     .lineLimit(2)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    	
                 
                     
 //                Will eventually fix placement of button
