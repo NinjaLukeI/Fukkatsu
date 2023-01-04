@@ -11,7 +11,7 @@ struct MangaRoot: Decodable {
     let data: [Manga]
 }
 
-struct Manga: Decodable {
+struct Manga: Decodable, Identifiable {
     let id: String
     let type: String
     
