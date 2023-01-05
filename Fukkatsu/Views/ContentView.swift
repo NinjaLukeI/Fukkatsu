@@ -18,15 +18,7 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView{
-            ScrollView{
-                LazyVGrid(columns: columns, spacing: 40){
-                    ForEach(0...2, id: \.self){ item in
-                        MangaListView()
-                        
-                    }
-                }
-                .padding(.horizontal)
-                    
+            MangaListView()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
@@ -39,8 +31,6 @@ struct ContentView: View {
                     }
                     
                 }
-        
-                
                     ToolbarItem(placement: .primaryAction) {
                         Button {
                             print("Search")
@@ -49,14 +39,11 @@ struct ContentView: View {
                                 .resizable()
                                 .frame(width: 18, height: 18)
                         }
-                        
-
-                    
                     
                 }
             }
             
-        }
+        
   
     }
     

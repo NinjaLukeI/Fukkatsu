@@ -12,33 +12,50 @@ struct MangaView: View {
     var manga: Manga
     
     var body: some View {
-        VStack{
-            Image("op")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 97.0, height: 183.0)
-                .shadow(radius: 2)
-                //.clipped()
+        VStack(alignment: .leading, spacing: 1){
             
-            HStack(alignment: .lastTextBaseline){
-                Text(manga.attributes.title.en)
-                    .fontWeight(.medium)
-                    .padding(.bottom, 2.0)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .font(.caption)
-                    .lineLimit(2)
-            }
+            ImageContainerView(image: "op")
+                .frame(width: 100.0, height: 160.0)
+                .shadow(radius: 3)
+            
+            
+            Text(manga.attributes.title.en)
+                .fontWeight(.medium)
+                //.padding(.bottom, 2.0)
+                .scaledToFill()
+                .fixedSize(horizontal: false, vertical: true)
+                .font(.caption)
+                .lineLimit(1)
+            
+            
             
             Text(manga.relationships[0].attributes!.authorName!)
                 .font(.caption2)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                //.frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
                 .allowsTightening(true)
-                .offset(y: -8)
+                .lineLimit(1)
+                
         }
-        .frame(width: 115, height: 248)
+        .frame(width: 101, height: 200)
+        
+        
     }
 }
 
+struct ImageContainerView: View {
+    var image: String
+    
+    var body: some View {
+        Color.clear
+            .overlay{
+                Image(image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+            .clipped()
+    }
+}
 
 struct MangaView_Previews: PreviewProvider {
     static var previews: some View {

@@ -14,20 +14,21 @@ struct MangaListView: View {
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
-        GridItem(.flexible())
+        GridItem(.flexible()),
+        
     ]
     
     var body: some View {
         
         
         ScrollView{
-            LazyVGrid(columns: columns, spacing: 40){
+            LazyVGrid(columns: columns, spacing: 10){
                 ForEach(mangaList.items){ item in
                     MangaView(manga: item)
                 }
+                
             }
             .padding(.horizontal)
-                
         }
         .task{
             await mangaList.populate()
