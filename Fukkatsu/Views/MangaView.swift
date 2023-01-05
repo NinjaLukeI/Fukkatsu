@@ -29,7 +29,7 @@ struct MangaView: View {
                     .lineLimit(2)
             }
             
-            Text("example author")
+            Text(manga.relationships[0].attributes!.authorName!)
                 .font(.caption2)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .allowsTightening(true)
@@ -47,7 +47,7 @@ struct MangaView_Previews: PreviewProvider {
                           type: "type",
                           attributes: manga_Attributes(title: manga_Title(
                             en: "example title"), description: manga_Description(en: "description"), year: 2003, lastChapter: "2003"),
-                          relationships: [manga_Relationships].init())
+                          relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "cover", authorName: "example author"))])
         
 
                                

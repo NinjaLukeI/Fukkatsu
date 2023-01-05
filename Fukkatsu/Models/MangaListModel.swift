@@ -16,7 +16,7 @@ extension MangaListView{
         
         func fetchManga() async -> [Manga] {
             
-            let url = URL(string: "https://api.mangadex.org/manga?availableTranslatedLanguage[]=en&includes[]=cover_art")!
+            let url = URL(string: "https://api.mangadex.org/manga?availableTranslatedLanguage[]=en&includes[]=cover_art&includes[]=author")!
 
             var request = URLRequest(url: url)
 
