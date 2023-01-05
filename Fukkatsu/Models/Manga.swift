@@ -47,11 +47,7 @@ struct manga_Relationships: Decodable{
 }
 
 struct relationship_Attributes: Decodable{
-    let cover_filename: String
-    
-    enum CodingKeys: String, CodingKey{
-        case cover_filename = "fileName"
-    }
+    let fileName: String
 }
 
 

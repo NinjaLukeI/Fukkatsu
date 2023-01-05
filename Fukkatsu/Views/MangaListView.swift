@@ -19,27 +19,19 @@ struct MangaListView: View {
     
     var body: some View {
         
-        NavigationView{
-            ScrollView{
-                LazyVGrid(columns: columns, spacing: 40){
-                    ForEach(mangaList.items){ item in
-                        MangaView(manga: item)
-                        
-                    }
+        
+        ScrollView{
+            LazyVGrid(columns: columns, spacing: 40){
+                ForEach(mangaList.items){ item in
+                    MangaView(manga: item)
                 }
-                .padding(.horizontal)
-                    
             }
+            .padding(.horizontal)
+                
         }
         .task{
             await mangaList.populate()
         }
-        
-        
-        
-        
-        
-        
     }
     
 }

@@ -55,15 +55,9 @@ struct ContentView: View {
                     
                 }
             }
-            //Spacer()
-            
-            
-            
             
         }
-        
-        
-        
+  
     }
     
     init() {
