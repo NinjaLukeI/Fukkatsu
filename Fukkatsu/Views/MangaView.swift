@@ -9,19 +9,39 @@ import SwiftUI
 
 struct MangaView: View {
     
+    
+    @StateObject private var mangaView = MangaViewModel()
     var manga: Manga
     
+    
     var body: some View {
+        
+        
         VStack(alignment: .leading, spacing: 1){
             
-            ImageContainerView(image: "op")
-                .frame(width: 100.0, height: 160.0)
-                .shadow(radius: 3)
-            
+//            ImageContainerView(image: "op")
+            AsyncImage(url: URL(string: mangaView.url),
+                       content: { image in
+                image.resizable()
+                    
+                    .shadow(radius: 3)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100.0, height: 160.0)
+                
+            },
+                       placeholder: {
+//                ProgressView()
+                Image("op")
+                    .resizable()
+                    .shadow(radius: 3)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100.0, height: 160.0)
+            })
+                       
             
             Text(manga.attributes.title.en)
+//            Text("hi")
                 .fontWeight(.medium)
-                //.padding(.bottom, 2.0)
                 .scaledToFill()
                 .fixedSize(horizontal: false, vertical: true)
                 .font(.caption)
@@ -30,14 +50,26 @@ struct MangaView: View {
             
             
             Text(manga.relationships[0].attributes!.authorName!)
+//            Text("hi")
                 .font(.caption2)
-                //.frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .allowsTightening(true)
                 .lineLimit(1)
                 
         }
         .frame(width: 101, height: 200)
+        .task {
+//            await mangaView.populate(mangaID: manga.id, filename: manga.relationships[0].attributes!.fileName ?? "cover", highQuality: true)
+            
+            
+            for (index, _) in manga.relationships.enumerated(){
+                
+                if(manga.relationships[index].type == "cover_art"){
+                    await mangaView.populate(mangaID: manga.id, filename: manga.relationships[index].attributes!.fileName ?? "cover", highQuality: true)
+                }
+            }
+            print(manga.relationships[0].attributes!)
+        }
         
         
     }
