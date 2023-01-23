@@ -20,6 +20,9 @@ struct ContentView: View {
         NavigationView{
             MangaListView()
             }
+        .task {
+            print("hi")
+        }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .principal) {

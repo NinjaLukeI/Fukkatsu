@@ -25,11 +25,11 @@ extension MangaListView{
             do{
                 let (data, _) = try await URLSession.shared.data(from: url)
                 
-                
                 let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
                 
                 return manga.data
             } catch {
+                print(error)
                 return []
             }
             

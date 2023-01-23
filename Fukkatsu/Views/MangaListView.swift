@@ -23,6 +23,7 @@ struct MangaListView: View {
         
         ScrollView{
             LazyVGrid(columns: columns, spacing: 10){
+                
                 ForEach(mangaList.items){ item in
                     MangaView(manga: item)
                 }

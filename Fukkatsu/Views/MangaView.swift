@@ -25,8 +25,8 @@ struct MangaView: View {
                 image.resizable()
                     
                     .shadow(radius: 3)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100.0, height: 160.0)
+                    //.aspectRatio(contentMode: .fit)
+                    .frame(width: 110.0, height: 160.0)
                 
             },
                        placeholder: {
@@ -39,7 +39,7 @@ struct MangaView: View {
             })
                        
             
-            Text(manga.attributes.title.en)
+            Text((manga.attributes.title.first?.value ?? manga.attributes.title["en"])!)
 //            Text("hi")
                 .fontWeight(.medium)
                 .scaledToFill()
@@ -68,7 +68,7 @@ struct MangaView: View {
                     await mangaView.populate(mangaID: manga.id, filename: manga.relationships[index].attributes!.fileName ?? "cover", highQuality: true)
                 }
             }
-            print(manga.relationships[0].attributes!)
+            print(mangaView.url)
         }
         
         
@@ -94,8 +94,7 @@ struct MangaView_Previews: PreviewProvider {
         
         let dummy = Manga(id: "id",
                           type: "type",
-                          attributes: manga_Attributes(title: manga_Title(
-                            en: "example title"), description: manga_Description(en: "description"), year: 2003, lastChapter: "2003"),
+                          attributes: manga_Attributes(title: ["title": "title"], description: ["description": "description"], year: 2003, lastChapter: "2003"),
                           relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "cover", authorName: "example author"))])
         
 
