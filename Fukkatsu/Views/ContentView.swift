@@ -17,48 +17,34 @@ struct ContentView: View {
     
     var body: some View {
         
-        NavigationView{
+        TabView{
             MangaListView()
-            }
-        .task {
-            print("hi")
+                .tabItem{
+                    Image(systemName: "book.closed")
+                }
         }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar{
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Discovery").font(.headline)
-                        
-                        SelectButton(isSelected: .constant(true), color: .green, text: "All")
- 
-                    }
-                    
-                }
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            print("Search")
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                                .resizable()
-                                .frame(width: 18, height: 18)
-                        }
-                    
-                }
+        .tint(.blue)
+        .onAppear(){
+            if #available(iOS 15.0, *) {
+                let navigationBarAppearance = UINavigationBarAppearance()
+                navigationBarAppearance.configureWithDefaultBackground()
+                UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+                UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+                UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
             }
-            
+        }
         
-  
     }
     
-    init() {
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
-        UINavigationBar.appearance().compactAppearance = navBarAppearance
-        
-    } //init
+//    init() {
+//        
+//        let navBarAppearance = UINavigationBarAppearance()
+//        
+//        UINavigationBar.appearance().standardAppearance = navBarAppearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+//        UINavigationBar.appearance().compactAppearance = navBarAppearance
+//        
+//    } //init
     
 }
 

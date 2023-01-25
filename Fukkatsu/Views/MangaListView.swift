@@ -20,20 +20,38 @@ struct MangaListView: View {
     
     var body: some View {
         
-        
-        ScrollView{
-            LazyVGrid(columns: columns, spacing: 10){
-                
-                ForEach(mangaList.items){ item in
-                    MangaView(manga: item)
+        NavigationView{
+            ScrollView{
+                LazyVGrid(columns: columns, spacing: 10){
+                    
+                    ForEach(mangaList.items){ item in
+                        MangaView(manga: item)
+                    }
+                    
                 }
-                
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
-        }
-        .task{
-            await mangaList.populate()
-        }
+            .task{
+                await mangaList.populate()
+            }
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar{
+                    ToolbarItem(placement: .principal) {
+                        
+                        Text("Discovery").font(.title2).fontWeight(.semibold)
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "magnifyingglass")
+                                .tint(.blue)
+                        }
+                    }
+                }
+            }
+        
     }
     
 }
