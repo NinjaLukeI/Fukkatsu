@@ -36,15 +36,6 @@ struct ContentView: View {
         
     }
     
-//    init() {
-//        
-//        let navBarAppearance = UINavigationBarAppearance()
-//        
-//        UINavigationBar.appearance().standardAppearance = navBarAppearance
-//        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
-//        UINavigationBar.appearance().compactAppearance = navBarAppearance
-//        
-//    } //init
     
 }
 
