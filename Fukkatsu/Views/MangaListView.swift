@@ -38,7 +38,7 @@ struct MangaListView: View {
                 .toolbar{
                     ToolbarItem(placement: .principal) {
                         
-                        Text("Discovery").font(.title2).fontWeight(.semibold)
+                        Text("Discovery").font(.title3).fontWeight(.regular)
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing){
