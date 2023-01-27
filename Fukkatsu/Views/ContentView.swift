@@ -25,17 +25,24 @@ struct ContentView: View {
         }
         .tint(.blue)
         .onAppear(){
-            if #available(iOS 15.0, *) {
-                let navigationBarAppearance = UINavigationBarAppearance()
-                navigationBarAppearance.configureWithDefaultBackground()
-                UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-                UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-                UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+            if #available(iOS 15, *) {
+                let nav_appearance = UINavigationBarAppearance()
+                nav_appearance.configureWithOpaqueBackground()
+                UINavigationBar.appearance().standardAppearance = nav_appearance
+                
+                let tab_appearance = UITabBarAppearance()
+                tab_appearance.configureWithOpaqueBackground()
+                UITabBar.appearance().standardAppearance = tab_appearance
+                
+                
+                
+
             }
         }
         
     }
     
+
     
 }
 

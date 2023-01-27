@@ -49,6 +49,22 @@ struct MangaListView: View {
                                 .tint(.blue)
                         }
                     }
+                    ToolbarItem(placement: .principal) {
+                        
+                        List([1, 2, 3], id: \.self) { row in
+                                HStack {
+                                    Button(action: { print("Button at \(row)") }) {
+                                        Text("Row: \(row) Name: A")
+                                    }
+                                    .buttonStyle(BorderlessButtonStyle())
+                                    
+                                    Button(action: { print("Button at \(row)") }) {
+                                        Text("Row: \(row) Name: B")
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                    }
                 }
             }
         
