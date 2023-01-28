@@ -18,23 +18,43 @@ struct MangaListView: View {
         
     ]
     
+    enum Option: String, CaseIterable, Identifiable{
+        case All, ForYou
+        var id: Self{ self }
+    }
+    
+    @State private var selectedOption: Option = .All
+    
     var body: some View {
         
+        
         NavigationView{
-            ScrollView{
-                LazyVGrid(columns: columns, spacing: 10){
+            
+
+            
+            
+            VStack{
+                
+                Picker("Option", selection: $selectedOption){
+                    Text("All").tag(Option.All)
+                    Text("For You").tag(Option.ForYou)
+                }.padding(.horizontal).pickerStyle(.segmented)
+                
+                ScrollView{
                     
-                    ForEach(mangaList.items){ item in
-                        MangaView(manga: item)
+                    LazyVGrid(columns: columns, spacing: 10){
+                        
+                        ForEach(mangaList.items){ item in
+                            MangaView(manga: item)
+                        }
                     }
-                    
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
-            }
-            .task{
-                await mangaList.populate()
-            }
+                .task{
+                    await mangaList.populate()
+                }
                 .navigationBarTitleDisplayMode(.inline)
+                
                 .toolbar{
                     ToolbarItem(placement: .principal) {
                         
@@ -49,23 +69,11 @@ struct MangaListView: View {
                                 .tint(.blue)
                         }
                     }
-                    ToolbarItem(placement: .principal) {
-                        
-                        List([1, 2, 3], id: \.self) { row in
-                                HStack {
-                                    Button(action: { print("Button at \(row)") }) {
-                                        Text("Row: \(row) Name: A")
-                                    }
-                                    .buttonStyle(BorderlessButtonStyle())
-                                    
-                                    Button(action: { print("Button at \(row)") }) {
-                                        Text("Row: \(row) Name: B")
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
-                            }
-                    }
                 }
+                
+            }
+                
+           
             }
         
     }
