@@ -30,48 +30,46 @@ struct MangaListView: View {
         
         NavigationView{
             
-
-            
-            
             VStack{
                 
-                Picker("Option", selection: $selectedOption){
-                    Text("All").tag(Option.All)
-                    Text("For You").tag(Option.ForYou)
-                }.padding(.horizontal).pickerStyle(.segmented)
-                
-                ScrollView{
+                    Picker("Option", selection: $selectedOption){
+                        Text("All").tag(Option.All)
+                        Text("For You").tag(Option.ForYou)
+                    }.padding(.horizontal).pickerStyle(.segmented)
+                    .colorMultiply(.green)
                     
-                    LazyVGrid(columns: columns, spacing: 10){
+                    ScrollView{
                         
-                        ForEach(mangaList.items){ item in
-                            MangaView(manga: item)
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .task{
-                    await mangaList.populate()
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                
-                .toolbar{
-                    ToolbarItem(placement: .principal) {
-                        
-                        Text("Discovery").font(.title3).fontWeight(.regular)
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing){
-                        Button {
+                        LazyVGrid(columns: columns, spacing: 10){
                             
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                                .tint(.blue)
+                            ForEach(mangaList.items){ item in
+                                MangaView(manga: item)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    .task{
+                        await mangaList.populate()
+                    }
+                    .navigationBarTitleDisplayMode(.inline)
+                    
+                    .toolbar{
+                        ToolbarItem(placement: .principal) {
+                            
+                            Text("Discovery").font(.title3).fontWeight(.regular)
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing){
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "magnifyingglass")
+                                    .tint(.blue)
+                            }
                         }
                     }
+                    
                 }
-                
-            }
                 
            
             }

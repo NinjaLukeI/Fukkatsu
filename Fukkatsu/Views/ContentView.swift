@@ -33,9 +33,6 @@ struct ContentView: View {
                 let tab_appearance = UITabBarAppearance()
                 tab_appearance.configureWithOpaqueBackground()
                 UITabBar.appearance().standardAppearance = tab_appearance
-                
-                
-                
 
             }
         }
