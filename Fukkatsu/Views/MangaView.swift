@@ -11,7 +11,7 @@ struct MangaView: View {
     
     
     @StateObject private var mangaView = MangaViewModel()
-    var manga: Manga
+    let manga: Manga
     
     
     var body: some View {
@@ -59,9 +59,7 @@ struct MangaView: View {
         }
         .frame(width: 101, height: 200)
         .task {
-//            await mangaView.populate(mangaID: manga.id, filename: manga.relationships[0].attributes!.fileName ?? "cover", highQuality: true)
-            
-            
+
             for (index, _) in manga.relationships.enumerated(){
                 
                 if(manga.relationships[index].type == "cover_art"){

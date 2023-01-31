@@ -19,6 +19,8 @@
 		52B2E1322947BD9800D2E7FA /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B2E1312947BD9800D2E7FA /* Manga.swift */; };
 		52B4460729443D4E00F4CED6 /* SelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B4460629443D4E00F4CED6 /* SelectButton.swift */; };
 		9409C2482967224E00D583B9 /* MangaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9409C2472967224E00D583B9 /* MangaViewModel.swift */; };
+		943F928D2987F4A8007661AE /* MangaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943F928C2987F4A8007661AE /* MangaDetailView.swift */; };
+		943F928F29883CB2007661AE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943F928E29883CB2007661AE /* Helper.swift */; };
 		946F9F142964F1FA001AB55A /* MangaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F9F132964F1FA001AB55A /* MangaView.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,8 @@
 		52B4460629443D4E00F4CED6 /* SelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectButton.swift; sourceTree = "<group>"; };
 		9409C2472967224E00D583B9 /* MangaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaViewModel.swift; sourceTree = "<group>"; };
 		94276C2E296E79A3001C0268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		943F928C2987F4A8007661AE /* MangaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailView.swift; sourceTree = "<group>"; };
+		943F928E29883CB2007661AE /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		946F9F132964F1FA001AB55A /* MangaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +128,7 @@
 				52A0E83E293F818300E641B3 /* FukkatsuApp.swift */,
 				52A0E842293F818600E641B3 /* Assets.xcassets */,
 				52A0E844293F818600E641B3 /* Preview Content */,
+				943F928E29883CB2007661AE /* Helper.swift */,
 			);
 			path = Fukkatsu;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 				52A0E840293F818300E641B3 /* ContentView.swift */,
 				52A0E86E293F91C600E641B3 /* MangaListView.swift */,
 				946F9F132964F1FA001AB55A /* MangaView.swift */,
+				943F928C2987F4A8007661AE /* MangaDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -301,8 +307,10 @@
 				52B4460729443D4E00F4CED6 /* SelectButton.swift in Sources */,
 				52B2E1322947BD9800D2E7FA /* Manga.swift in Sources */,
 				52A0E83F293F818300E641B3 /* FukkatsuApp.swift in Sources */,
+				943F928D2987F4A8007661AE /* MangaDetailView.swift in Sources */,
 				529AA9392949338500943089 /* MangaListModel.swift in Sources */,
 				946F9F142964F1FA001AB55A /* MangaView.swift in Sources */,
+				943F928F29883CB2007661AE /* Helper.swift in Sources */,
 				52A0E86F293F91C600E641B3 /* MangaListView.swift in Sources */,
 				9409C2482967224E00D583B9 /* MangaViewModel.swift in Sources */,
 			);

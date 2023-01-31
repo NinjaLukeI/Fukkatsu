@@ -43,7 +43,12 @@ struct MangaListView: View {
                         LazyVGrid(columns: columns, spacing: 10){
                             
                             ForEach(mangaList.items){ item in
-                                MangaView(manga: item)
+                                NavigationLink(destination: MangaDetailView()){
+                                    
+                                    MangaView(manga: item)
+                                }
+                                .buttonStyle(.plain)
+                                
                             }
                         }
                         .padding(.horizontal)
