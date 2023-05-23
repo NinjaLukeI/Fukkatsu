@@ -31,7 +31,6 @@ struct MangaListView: View {
         NavigationView{
             
             VStack{
-                
                     Picker("Option", selection: $selectedOption){
                         Text("All").tag(Option.All)
                         Text("For You").tag(Option.ForYou)
@@ -43,7 +42,7 @@ struct MangaListView: View {
                         LazyVGrid(columns: columns, spacing: 10){
                             
                             ForEach(mangaList.items){ item in
-                                NavigationLink(destination: MangaDetailView()){
+                                NavigationLink(destination: MangaDetailView(manga: MangaView(manga: item))){
                                     
                                     MangaView(manga: item)
                                 }

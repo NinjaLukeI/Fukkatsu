@@ -29,21 +29,6 @@ struct manga_Attributes: Decodable {
     //let status: String
 }
 
-//struct manga_Title: Decodable{
-//    let title: String
-//
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: DynamicCodingKeys.self)
-//        guard let title = container.codingPath.first?.stringValue else {
-//            throw NSError(domain: "com.json.decoder",
-//                        code: -1,
-//                        userInfo: [NSLocalizedFailureReasonErrorKey:"Chapter is missing a name"])
-//            }
-//
-//            self.title = title
-//    }
-//
-//}
 
 struct manga_Description: Decodable{
     let description: String
@@ -68,18 +53,6 @@ struct relationship_Attributes: Decodable{
     }
 }
 
-struct DynamicCodingKeys: CodingKey {
-  var stringValue: String
-  var intValue: Int?
-  
-  init?(stringValue: String) {
-    self.stringValue = stringValue
-  }
-    
-    init?(intValue: Int) {
-        return nil
-    }
-  
-}
+
 
 

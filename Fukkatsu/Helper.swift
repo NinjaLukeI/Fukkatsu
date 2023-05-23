@@ -24,3 +24,9 @@ func getCover(mangaID: String, filename: String, highQuality: Bool) async -> Str
 return ""
 
 }
+
+
+func populate(mangaID: String, filename: String, highQuality: Bool) async -> String{
+    let cover = await getCover(mangaID: mangaID, filename: filename, highQuality: true)
+    return cover
+}

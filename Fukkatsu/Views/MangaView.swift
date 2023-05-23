@@ -37,6 +37,7 @@ struct MangaView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100.0, height: 160.0)
             })
+            
                        
             
             Text((manga.attributes.title.first?.value ?? manga.attributes.title["en"])!)
@@ -73,6 +74,13 @@ struct MangaView: View {
     }
 }
 
+struct BigTitle: ViewModifier{
+    func body(content: Content) -> some View{
+        content
+            
+    }
+}
+
 struct ImageContainerView: View {
     var image: String
     
@@ -101,3 +109,5 @@ struct MangaView_Previews: PreviewProvider {
         
     }
 }
+
+
