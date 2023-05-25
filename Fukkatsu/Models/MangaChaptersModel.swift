@@ -16,7 +16,7 @@ import Foundation
     
     func fetchChapters(mangaID: String) async -> [MangaChapters]{
         
-        let url = URL(string: "https://api.mangadex.org/manga/\(mangaID)/feed?limit=30")!
+        let url = URL(string: "https://api.mangadex.org/manga/\(mangaID)/feed?limit=30&translatedLanguage[]=en&order[createdAt]=asc&order[updatedAt]=asc&order[publishAt]=asc&order[readableAt]=asc&order[volume]=asc&order[chapter]=asc")!
         
         var request = URLRequest(url: url)
 
