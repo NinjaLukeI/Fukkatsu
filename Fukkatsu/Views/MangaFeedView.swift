@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct MangaDetailView: View {
+struct MangaFeedView: View {
     
     let manga: MangaView
     
-    @StateObject private var mangaChapters = MangaChaptersModel()
+    @StateObject private var mangaFeed = MangaFeedModel()
     
     let columns = [
         GridItem(.flexible())
@@ -20,15 +20,25 @@ struct MangaDetailView: View {
     var body: some View {
         HStack{manga}
             .task{
-                await mangaChapters.populate(mangaID: manga.manga.id)
+                await mangaFeed.populate(mangaID: manga.manga.id)
             }
         ScrollView{
             LazyVGrid(columns: columns, spacing: 10){
-                ForEach(mangaChapters.items){
+                ForEach(mangaFeed.items){
                     item in
                     HStack{
-                        Text("Chapter \(item.attributes.chapter)")
+                        
+                        NavigationLink(destination: ReaderView(chapter: item)){
+                            
+                            Text("Chapter \(item.attributes.chapter): \(optionalCheck(value: item.attributes.title))")
+                        }
+                        
+                        
                     }
+                    .task{
+                        print(item.id)
+                    }
+                    
                 }
             }
         }
@@ -45,6 +55,6 @@ struct MangaDetailView_Previews: PreviewProvider {
                           attributes: manga_Attributes(title: ["title": "title"], description: ["description": "description"], year: 2003, lastChapter: "2003"),
                           relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "cover", authorName: "example author"))])
         
-        MangaDetailView(manga: MangaView(manga: dummy))
+        MangaFeedView(manga: MangaView(manga: dummy))
     }
 }

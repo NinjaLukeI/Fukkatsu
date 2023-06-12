@@ -21,12 +21,21 @@ func getCover(mangaID: String, filename: String, highQuality: Bool) async -> Str
         coverUrl = "https://uploads.mangadex.org/covers/" + mangaID + "/" + filename
     }
    
-return ""
+    return ""
 
 }
+
+
 
 
 func populate(mangaID: String, filename: String, highQuality: Bool) async -> String{
     let cover = await getCover(mangaID: mangaID, filename: filename, highQuality: true)
     return cover
+}
+
+func optionalCheck(value: String?) -> String{
+    if let data = value{
+        return data
+    }
+    return ""
 }

@@ -7,16 +7,18 @@
 
 import Foundation
 
-@MainActor class MangaChaptersModel: ObservableObject{
+@MainActor class MangaFeedModel: ObservableObject{
     
     
-    @Published var items: [MangaChapters] = []
+    @Published var items: [MangaFeed] = []
     
     
     
-    func fetchChapters(mangaID: String) async -> [MangaChapters]{
+    func fetchFeed(mangaID: String) async -> [MangaFeed]{
         
         let url = URL(string: "https://api.mangadex.org/manga/\(mangaID)/feed?limit=30&translatedLanguage[]=en&order[createdAt]=asc&order[updatedAt]=asc&order[publishAt]=asc&order[readableAt]=asc&order[volume]=asc&order[chapter]=asc")!
+        
+        
         
         var request = URLRequest(url: url)
 
@@ -25,7 +27,7 @@ import Foundation
         do{
             let (data, _) = try await URLSession.shared.data(from: url)
             
-            let manga = try JSONDecoder().decode(MangaChaptersRoot.self, from: data)
+            let manga = try JSONDecoder().decode(MangaFeedRoot.self, from: data)
             
             return manga.data
         } catch {
@@ -36,7 +38,7 @@ import Foundation
     }
     
     func populate(mangaID: String) async {
-        let fetched = await fetchChapters(mangaID: mangaID)
+        let fetched = await fetchFeed(mangaID: mangaID)
         items = fetched
     }
     
