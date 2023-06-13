@@ -62,14 +62,23 @@ struct Page: View {
     
     var body: some View{
         
-        AsyncImage(url: URL(string: page), scale: 2){ image in image
-                .resizable()
-                .scaledToFit()
-        } placeholder: {
-            ProgressView()
-        }
+        AsyncImage(url: URL(string: page), scale: 2){ phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image.resizable()
+                    .scaledToFit()
+            case .failure:
+                Image(systemName: "photo")
+            @unknown default:
+                //since the asyncimagephase enum isn't frozen
+                //this unused fallback needs to be added to handle
+                //any cases that might be added in the future:
+                EmptyView()
+            }
             
-        
+        }
     }
     
 }
