@@ -28,15 +28,12 @@ struct MangaView: View {
                     //.aspectRatio(contentMode: .fit)
                     .frame(width: 110.0, height: 160.0)
                 
-            },
+                    },
                        placeholder: {
-//                ProgressView()
-                Image("op")
-                    .resizable()
-                    .shadow(radius: 3)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100.0, height: 160.0)
-            })
+                        //Eventually i'll replace this with
+                        //an actual image
+                        ProgressView()
+                    })
             
                        
             

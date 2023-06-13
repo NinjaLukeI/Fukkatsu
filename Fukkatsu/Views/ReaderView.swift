@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 
 
@@ -40,16 +41,17 @@ struct ReaderView: View {
             TabView{
                 ForEach(reader.pages, id: \.self) { page in
                     
-                    Page(page: page)
+                    VStack{
+                        Page(page: page)
+                        
+                    }
+                    
                     
                 }
             }
             .tabViewStyle(.page)
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         }
-        
-        
-        
         
         
     }
@@ -62,23 +64,27 @@ struct Page: View {
     
     var body: some View{
         
-        AsyncImage(url: URL(string: page), scale: 2){ phase in
-            switch phase {
-            case .empty:
+        KFImage.url(URL(string: page))
+            .placeholder{
                 ProgressView()
-            case .success(let image):
-                image.resizable()
-                    .scaledToFit()
-            case .failure:
-                Image(systemName: "photo")
-            @unknown default:
-                //since the asyncimagephase enum isn't frozen
-                //this unused fallback needs to be added to handle
-                //any cases that might be added in the future:
-                EmptyView()
+                
             }
+            .retry(maxCount: 3, interval: .seconds(5))
+            .onSuccess{ r in
+                print("Image obtained successfully: \(r)")
+            }
+            .onFailure{ e in
+                print("failure: \(e)")
+            }
+            .resizable()
+            .scaledToFit()
+        
+//        KFImage(url: URL(string: page))
+//            .placeholder
+//            .resizable()
+//            .scaledToFit()
             
-        }
+        
     }
     
 }
