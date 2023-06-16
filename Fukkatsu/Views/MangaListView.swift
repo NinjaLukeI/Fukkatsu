@@ -24,6 +24,7 @@ struct MangaListView: View {
     }
     
     @State private var selectedOption: Option = .All
+    @State private var searchText: String = ""
     
     var body: some View {
         
@@ -53,6 +54,7 @@ struct MangaListView: View {
                         .padding(.horizontal)
                     }
                     .task{
+                        
                         await mangaList.populate()
                     }
                     .navigationBarTitleDisplayMode(.inline)
@@ -63,20 +65,24 @@ struct MangaListView: View {
                             Text("Discovery").font(.title3).fontWeight(.regular)
                         }
                         
-                        ToolbarItem(placement: .navigationBarTrailing){
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "magnifyingglass")
-                                    .tint(.blue)
-                            }
-                        }
                     }
                     
                 }
                 
-           
             }
+        .searchable(text: $searchText)
+        .onChange(of: searchText) { value in
+            print(value)
+            Task{
+                if !searchText.isEmpty{
+                    await mangaList.populate(title: value)
+                }
+                else{
+                    await mangaList.populate()
+                }
+                
+            }
+        }
         
     }
     
