@@ -54,8 +54,13 @@ struct MangaListView: View {
                         .padding(.horizontal)
                     }
                     .task{
+                        if !searchText.isEmpty{
+                            await mangaList.populate(title: searchText)
+                        }
+                        else{
+                            await mangaList.populate()
+                        }
                         
-                        await mangaList.populate()
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     
@@ -71,8 +76,10 @@ struct MangaListView: View {
                 
             }
         .searchable(text: $searchText)
+        .keyboardType(.asciiCapable)
         .onChange(of: searchText) { value in
             print(value)
+            //handles searching
             Task{
                 if !searchText.isEmpty{
                     await mangaList.populate(title: value)
