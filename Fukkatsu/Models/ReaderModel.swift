@@ -10,7 +10,7 @@ import Foundation
 @MainActor class ReaderModel: ObservableObject{
     
     @Published var chapters: [ChapterRoot] = []
-    @Published var pages: [String] = []
+//    @Published var pages: [String] = []
     @Published var loading = false
     
     
@@ -43,8 +43,10 @@ import Foundation
     }
     
     
-    func constructPages() async {
+    func constructPages() async -> [String] {
         self.loading = true
+        
+        var pages: [String] = []
         
         if !self.chapters.isEmpty{
             let baseUrl = self.chapters[0].baseUrl
@@ -55,6 +57,11 @@ import Foundation
                 pages.append(url)
             }
             self.loading = false
+            
+            return pages
+        }
+        else{
+            return []
         }
         
     }

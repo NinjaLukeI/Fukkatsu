@@ -15,16 +15,18 @@ struct ReaderView: View {
     let chapter: MangaFeed
     
     @StateObject private var reader = ReaderModel()
-    
+    @State var pages: [String] = []
     
     var body: some View {
+        
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             .task{
                 await reader.populate(chapterID: chapter.id)
                 
-                await reader.constructPages()
-            
+                await pages = reader.constructPages()
+
             }
+            .hidden()
             
         if reader.loading{
             
@@ -38,9 +40,9 @@ struct ReaderView: View {
                 .scaleEffect(3)
         }
         
-        if (reader.pages.count != 0){
+        if (pages.count > 0){
             TabView{
-                ForEach(reader.pages, id: \.self) { page in
+                ForEach(pages, id: \.self) { page in
                     
                     VStack{
                         Page(page: page)
@@ -92,8 +94,11 @@ struct Reader_Previews: PreviewProvider {
         
         let dummy = MangaFeed(id: "1", type: "Chapter", attributes: feed_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23"))
         
+        let dummyPages: [String] = ["https://i.pinimg.com/736x/9c/d9/8d/9cd98d26d91eb17844174b70f0864fa4.jpg", "https://i.pinimg.com/550x/cd/0d/37/cd0d37b3ae0290e0f7e7006049b042df.jpg"]
         
-        ReaderView(chapter: dummy)
+        
+        ReaderView(chapter: dummy, pages: dummyPages)
+        
     }
 }
 
