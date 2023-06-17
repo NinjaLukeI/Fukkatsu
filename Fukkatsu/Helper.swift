@@ -7,17 +7,6 @@
 
 import Foundation
 
-extension Array {
-    public subscript(safeIndex index: Int) -> Element? {
-        guard index >= 0, index < endIndex else{
-            return nil
-        }
-        
-        return self[index]
-    }
-    
-    
-}
 
 func optionalCheck(value: String?) -> String{
     if let data = value{
@@ -25,3 +14,13 @@ func optionalCheck(value: String?) -> String{
     }
     return ""
 }
+
+//extension for URLComponents to accept dictionaries
+//extension URLComponents {
+//    
+//    mutating func setQueryItems(with parameters: [String: String]){
+//        self.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value)}
+//    }
+//    
+//}
+

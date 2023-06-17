@@ -42,6 +42,7 @@ struct MangaListView: View {
                         }
                         .padding(.horizontal)
                     }
+                
                     .task{
                         if !searchText.isEmpty{
                             await mangaList.populate(title: searchText)

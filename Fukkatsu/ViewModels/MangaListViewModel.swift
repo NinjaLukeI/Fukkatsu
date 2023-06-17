@@ -14,61 +14,46 @@ import Foundation
     
     func fetchManga(title: String = "") async -> [Manga] {
         
+        var queryParams: [URLQueryItem] = [
+            URLQueryItem(name: "availableTranslatedLanguage[]", value: "en" ),
+            URLQueryItem(name: "includes[]", value: "cover_art" ),
+            URLQueryItem(name: "includes[]", value: "author" ),
+        ]
         
-        if(title.isEmpty){
-            
-            let url = URL(string: "https://api.mangadex.org/manga?availableTranslatedLanguage[]=en&includes[]=cover_art&includes[]=author")!
-
-            var request = URLRequest(url: url)
-
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                        
-            do{
-                let (data, _) = try await URLSession.shared.data(from: url)
-                
-                let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
-                
-                return manga.data
-            } catch {
-                print(error)
-                return []
-            }
+        if(!title.isEmpty){
+            queryParams.append(URLQueryItem(name: "title", value: title))
         }
         
-        else{
+        var url = URLComponents()
+        url.scheme = "https"
+        url.host = "api.mangadex.org"
+        url.path = "/manga"
+        url.queryItems = queryParams
+        
+        
+        var request = URLRequest(url: url.url!)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            let (data, _) = try await URLSession.shared.data(from: url.url!)
             
-            let MangaTitle = title.replacingOccurrences(of: " ", with: "%20") // sanitising query
-            print("\(MangaTitle) is the title")
+            let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
-            let url = URL(string: "https://api.mangadex.org/manga?availableTranslatedLanguage[]=en&includes[]=cover_art&includes[]=author&title=\(MangaTitle)")!
-            
-            var request = URLRequest(url: url)
-
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                        
-            do{
-                let (data, _) = try await URLSession.shared.data(from: url)
-                
-                let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
-                
-                return manga.data
-            } catch {
-                print(error)
-                return []
-            }
-            
+            return manga.data
+        } catch {
+            print(error)
+            return []
         }
-        
-        
-        
-        
     }
+    
+    
     
     func populate(title: String = "") async {
         let fetched = await fetchManga(title: title)
         items = fetched
     }
     
-}
     
-
+    
+}
