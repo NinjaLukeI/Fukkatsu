@@ -44,13 +44,7 @@ struct MangaListView: View {
                     }
                 
                     .task{
-                        if !searchText.isEmpty{
-                            await mangaList.populate(title: searchText)
-                        }
-                        else{
-                            await mangaList.populate()
-                        }
-                        
+                        await mangaList.fetchManga()
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     
@@ -72,10 +66,10 @@ struct MangaListView: View {
             //handles searching
             Task{
                 if !searchText.isEmpty{
-                    await mangaList.populate(title: value)
+                    await mangaList.fetchManga(title: searchText)
                 }
                 else{
-                    await mangaList.populate()
+                    await mangaList.fetchManga()
                 }
                 
             }

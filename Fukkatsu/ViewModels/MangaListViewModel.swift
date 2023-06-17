@@ -12,7 +12,7 @@ import Foundation
     
     @Published var items: [Manga] = []
     
-    func fetchManga(title: String = "") async -> [Manga] {
+    func fetchManga(title: String = "") async{
         
         var queryParams: [URLQueryItem] = [
             URLQueryItem(name: "availableTranslatedLanguage[]", value: "en" ),
@@ -40,19 +40,22 @@ import Foundation
             
             let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
-            return manga.data
+            items = manga.data
         } catch {
             print(error)
-            return []
         }
     }
     
     
-    
-    func populate(title: String = "") async {
-        let fetched = await fetchManga(title: title)
-        items = fetched
+    func fetchMore() async {
+        
     }
+    
+    
+//    func populate(title: String = "") async {
+//        let fetched = await fetchManga(title: title)
+//        items = fetched
+//    }
     
     
     
