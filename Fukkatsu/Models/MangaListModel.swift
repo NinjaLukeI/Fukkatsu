@@ -37,7 +37,7 @@ import Foundation
         
         else{
             
-            var MangaTitle = title.replacingOccurrences(of: " ", with: "%20")
+            let MangaTitle = title.replacingOccurrences(of: " ", with: "%20") // sanitising query
             print("\(MangaTitle) is the title")
             
             let url = URL(string: "https://api.mangadex.org/manga?availableTranslatedLanguage[]=en&includes[]=cover_art&includes[]=author&title=\(MangaTitle)")!

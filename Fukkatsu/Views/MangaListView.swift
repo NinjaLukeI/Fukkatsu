@@ -18,12 +18,7 @@ struct MangaListView: View {
         
     ]
     
-    enum Option: String, CaseIterable, Identifiable{
-        case All, ForYou
-        var id: Self{ self }
-    }
     
-    @State private var selectedOption: Option = .All
     @State private var searchText: String = ""
     
     var body: some View {
@@ -32,12 +27,6 @@ struct MangaListView: View {
         NavigationView{
             
             VStack{
-                    Picker("Option", selection: $selectedOption){
-                        Text("All").tag(Option.All)
-                        Text("For You").tag(Option.ForYou)
-                    }.padding(.horizontal).pickerStyle(.segmented)
-                    .colorMultiply(.green)
-                    
                     ScrollView{
                         
                         LazyVGrid(columns: columns, spacing: 10){
