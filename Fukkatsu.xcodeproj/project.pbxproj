@@ -131,14 +131,14 @@
 		52A0E83D293F818300E641B3 /* Fukkatsu */ = {
 			isa = PBXGroup;
 			children = (
-				94276C2E296E79A3001C0268 /* Info.plist */,
-				94203CAC2A3D577900CC8633 /* ViewModel */,
+				94203CAD2A3D589A00CC8633 /* ViewModels */,
 				529AA9372949331B00943089 /* Models */,
 				52A0E870293F91D400E641B3 /* Views */,
-				52A0E83E293F818300E641B3 /* FukkatsuApp.swift */,
-				52A0E842293F818600E641B3 /* Assets.xcassets */,
 				52A0E844293F818600E641B3 /* Preview Content */,
 				943F928E29883CB2007661AE /* Helper.swift */,
+				52A0E83E293F818300E641B3 /* FukkatsuApp.swift */,
+				94276C2E296E79A3001C0268 /* Info.plist */,
+				52A0E842293F818600E641B3 /* Assets.xcassets */,
 			);
 			path = Fukkatsu;
 			sourceTree = "<group>";
@@ -180,7 +180,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		94203CAC2A3D577900CC8633 /* ViewModel */ = {
+		94203CAD2A3D589A00CC8633 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				529AA9382949338500943089 /* MangaListViewModel.swift */,
@@ -188,7 +188,7 @@
 				94F3CF592A1D4C81005E8677 /* FeedViewModel.swift */,
 				94F3CF612A24F5A2005E8677 /* ReaderViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

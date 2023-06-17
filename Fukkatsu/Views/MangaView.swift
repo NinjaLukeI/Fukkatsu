@@ -12,6 +12,7 @@ struct MangaView: View {
     
     
     @StateObject private var mangaView = MangaViewModel()
+    @State var coverUrl: String = ""
     let manga: Manga
     
     
@@ -20,7 +21,7 @@ struct MangaView: View {
         
         VStack(alignment: .leading, spacing: 1){
             
-            KFImage.url(URL(string: mangaView.url))
+            KFImage.url(URL(string: coverUrl))
                 .placeholder{
                     ProgressView()
                 }
@@ -59,10 +60,11 @@ struct MangaView: View {
             for (index, _) in manga.relationships.enumerated(){
                 
                 if(manga.relationships[index].type == "cover_art"){
-                    await mangaView.populate(mangaID: manga.id, filename: manga.relationships[index].attributes!.fileName ?? "cover", highQuality: true)
+                    await coverUrl = mangaView.populate(mangaID: manga.id, filename: manga.relationships[index].attributes!.fileName ?? "cover", highQuality: true)
                 }
             }
-            print(mangaView.url)
+            
+            print(coverUrl)
         }
         
         
@@ -78,9 +80,9 @@ struct MangaView_Previews: PreviewProvider {
                           attributes: manga_Attributes(title: ["title": "title"], description: ["description": "description"], year: 2003, lastChapter: "2003"),
                           relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "cover", authorName: "example author"))])
         
-
+        let url = "https://static.wikia.nocookie.net/onepiece/images/c/c6/Volume_100.png/revision/latest?cb=20210903160940"
                                
-        MangaView(manga: dummy)
+        MangaView(coverUrl: url, manga: dummy)
         
     }
 }

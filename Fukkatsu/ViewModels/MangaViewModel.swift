@@ -9,7 +9,6 @@ import Foundation
 
 @MainActor class MangaViewModel: ObservableObject{
 
-    @Published var url: String = ""
     
     func getCover(mangaID: String, filename: String, highQuality: Bool) async -> String {
         
@@ -27,9 +26,17 @@ import Foundation
 
     }
     
-    func populate(mangaID: String, filename: String, highQuality: Bool) async{
-        let cover = await getCover(mangaID: mangaID, filename: filename, highQuality: true)
-        url = cover
+    func populate(mangaID: String, filename: String, highQuality: Bool) async -> String{
+        
+        var url: String = ""
+        url = await getCover(mangaID: mangaID, filename: filename, highQuality: true)
+        
+        
+        if !url.isEmpty{
+            return url
+        }
+        else{ return "" }
+        
     }
     
 }
