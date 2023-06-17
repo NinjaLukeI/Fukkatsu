@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MangaView: View {
     
@@ -19,23 +20,20 @@ struct MangaView: View {
         
         VStack(alignment: .leading, spacing: 1){
             
-//            ImageContainerView(image: "op")
-            AsyncImage(url: URL(string: mangaView.url),
-                       content: { image in
-                image.resizable()
-                    
-                    .shadow(radius: 3)
-                    //.aspectRatio(contentMode: .fit)
-                    .frame(width: 110.0, height: 160.0)
-                
-                    },
-                       placeholder: {
-                        //Eventually i'll replace this with
-                        //an actual image
-                        ProgressView()
-                    })
-            
-                       
+            KFImage.url(URL(string: mangaView.url))
+                .placeholder{
+                    ProgressView()
+                }
+                .retry(maxCount: 3, interval: .seconds(5))
+                .onSuccess{ r in
+                    print("Image obtained successfully: \(r)")
+                }
+                .onFailure{ e in
+                    print("failure: \(e)")
+                }
+                .resizable()
+                .shadow(radius: 3)
+                .frame(width: 110.0, height: 160.0)
             
             Text((manga.attributes.title.first?.value ?? manga.attributes.title["en"])!)
 //            Text("hi")
@@ -71,26 +69,6 @@ struct MangaView: View {
     }
 }
 
-struct BigTitle: ViewModifier{
-    func body(content: Content) -> some View{
-        content
-            
-    }
-}
-
-struct ImageContainerView: View {
-    var image: String
-    
-    var body: some View {
-        Color.clear
-            .overlay{
-                Image(image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
-            .clipped()
-    }
-}
 
 struct MangaView_Previews: PreviewProvider {
     static var previews: some View {

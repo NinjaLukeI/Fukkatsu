@@ -35,27 +35,27 @@ import Foundation
         
     }
     
-        func populate(chapterID: String) async {
-            
-            let fetched = await fetchChapters(chapterID: chapterID)
-            chapters = fetched
+    func populate(chapterID: String) async {
+        
+        let fetched = await fetchChapters(chapterID: chapterID)
+        chapters = fetched
 
-            
-            
-        }
+    }
     
     
     func constructPages() async {
         self.loading = true
-        let baseUrl = self.chapters[0].baseUrl
-        let hash = self.chapters[0].chapter.hash
         
-        for data in self.chapters[0].chapter.data{
-            let url = "\(baseUrl)/data/\(hash)/\(data)"
-            pages.append(url)
+        if !self.chapters.isEmpty{
+            let baseUrl = self.chapters[0].baseUrl
+            let hash = self.chapters[0].chapter.hash
+            
+            for data in self.chapters[0].chapter.data{
+                let url = "\(baseUrl)/data/\(hash)/\(data)"
+                pages.append(url)
+            }
+            self.loading = false
         }
         
-        
-        self.loading = false
     }
 }

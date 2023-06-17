@@ -16,6 +16,7 @@ struct ReaderView: View {
     
     @StateObject private var reader = ReaderModel()
     
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             .task{
@@ -79,11 +80,6 @@ struct Page: View {
             .resizable()
             .scaledToFit()
         
-//        KFImage(url: URL(string: page))
-//            .placeholder
-//            .resizable()
-//            .scaledToFit()
-            
         
     }
     
@@ -95,6 +91,7 @@ struct Reader_Previews: PreviewProvider {
     static var previews: some View {
         
         let dummy = MangaFeed(id: "1", type: "Chapter", attributes: feed_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23"))
+        
         
         ReaderView(chapter: dummy)
     }
