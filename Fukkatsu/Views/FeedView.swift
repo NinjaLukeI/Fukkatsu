@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct MangaFeedView: View {
+struct FeedView: View {
     
     let manga: MangaView
     
-    @StateObject private var mangaFeed = MangaFeedModel()
+    @StateObject private var mangaFeed = FeedViewModel()
     
     let columns = [
         GridItem(.flexible())
@@ -55,6 +55,6 @@ struct MangaDetailView_Previews: PreviewProvider {
                           attributes: manga_Attributes(title: ["title": "title"], description: ["description": "description"], year: 2003, lastChapter: "2003"),
                           relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "cover", authorName: "example author"))])
         
-        MangaFeedView(manga: MangaView(manga: dummy))
+        FeedView(manga: MangaView(manga: dummy))
     }
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct MangaFeedRoot: Decodable {
-    let data: [MangaFeed]
+struct FeedRoot: Decodable {
+    let data: [Feed]
 }
 
-struct MangaFeed: Decodable, Identifiable{
+struct Feed: Decodable, Identifiable{
     let id: String
     let type: String // realistically will always be a chapter but whatever
     

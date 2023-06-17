@@ -7,14 +7,14 @@
 
 import Foundation
 
-@MainActor class MangaFeedModel: ObservableObject{
+@MainActor class FeedViewModel: ObservableObject{
     
     
-    @Published var items: [MangaFeed] = []
+    @Published var items: [Feed] = []
     
     
     
-    func fetchFeed(mangaID: String) async -> [MangaFeed]{
+    func fetchFeed(mangaID: String) async -> [Feed]{
         
         let url = URL(string: "https://api.mangadex.org/manga/\(mangaID)/feed?limit=30&translatedLanguage[]=en&order[createdAt]=asc&order[updatedAt]=asc&order[publishAt]=asc&order[readableAt]=asc&order[volume]=asc&order[chapter]=asc")!
         
@@ -27,7 +27,7 @@ import Foundation
         do{
             let (data, _) = try await URLSession.shared.data(from: url)
             
-            let manga = try JSONDecoder().decode(MangaFeedRoot.self, from: data)
+            let manga = try JSONDecoder().decode(FeedRoot.self, from: data)
             
             return manga.data
         } catch {

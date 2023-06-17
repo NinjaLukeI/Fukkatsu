@@ -8,7 +8,7 @@
 import Foundation
 
 
-@MainActor class MangaListModel: ObservableObject{
+@MainActor class MangaListViewModel: ObservableObject{
     
     @Published var items: [Manga] = []
     

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MangaListView: View {
     
-    @StateObject private var mangaList = MangaListModel()
+    @StateObject private var mangaList = MangaListViewModel()
     
     let columns = [
         GridItem(.flexible()),
@@ -32,7 +32,7 @@ struct MangaListView: View {
                         LazyVGrid(columns: columns, spacing: 10){
                             
                             ForEach(mangaList.items){ item in
-                                NavigationLink(destination: MangaFeedView(manga: MangaView(manga: item))){
+                                NavigationLink(destination: FeedView(manga: MangaView(manga: item))){
                                     
                                     MangaView(manga: item)
                                 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor class ReaderModel: ObservableObject{
+@MainActor class ReaderViewModel: ObservableObject{
     
     @Published var chapters: [ChapterRoot] = []
 //    @Published var pages: [String] = []
