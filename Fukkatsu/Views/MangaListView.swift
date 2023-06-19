@@ -61,6 +61,7 @@ struct MangaListView: View {
             }
         .searchable(text: $searchText)
         .keyboardType(.asciiCapable)
+        .autocorrectionDisabled()
         .onChange(of: searchText) { value in
             print(value)
             //handles searching

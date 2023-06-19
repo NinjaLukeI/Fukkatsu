@@ -24,7 +24,7 @@ import Foundation
             URLQueryItem(name: "order[publishAt]", value: "asc"),
             URLQueryItem(name: "order[readableAt]", value: "asc"),
             URLQueryItem(name: "order[volume]", value: "asc"),
-            URLQueryItem(name: "chapter]", value: "asc"),
+            URLQueryItem(name: "order[chapter]", value: "asc"),
         ]
         
         print(queryParams)
