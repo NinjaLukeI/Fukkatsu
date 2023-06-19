@@ -26,7 +26,6 @@ struct MangaListView: View {
         
         NavigationView{
             
-            VStack{
                     ScrollView{
                         
                         LazyVGrid(columns: columns, spacing: 10){
@@ -35,10 +34,14 @@ struct MangaListView: View {
                                 NavigationLink(destination: FeedView(manga: MangaView(manga: item))){
                                     
                                     MangaView(manga: item)
+                                    
                                 }
                                 .buttonStyle(.plain)
                                 
+                                
+                                
                             }
+                            
                         }
                         .padding(.horizontal)
                     }
@@ -55,9 +58,6 @@ struct MangaListView: View {
                         }
                         
                     }
-                    
-                }
-                
             }
         .searchable(text: $searchText)
         .keyboardType(.asciiCapable)
@@ -65,15 +65,15 @@ struct MangaListView: View {
         .onChange(of: searchText) { value in
             print(value)
             //handles searching
-            Task{
-                if !searchText.isEmpty{
-                    await mangaList.fetchManga(title: searchText)
-                }
-                else{
-                    await mangaList.fetchManga()
-                }
-                
-            }
+//            Task{
+//                if !searchText.isEmpty{
+//                    await mangaList.fetchManga(title: searchText)
+//                }
+//                else{
+//                    await mangaList.fetchManga()
+//                }
+//
+//            }
         }
         
     }

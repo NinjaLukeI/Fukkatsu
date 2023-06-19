@@ -18,6 +18,7 @@ import Foundation
             URLQueryItem(name: "availableTranslatedLanguage[]", value: "en" ),
             URLQueryItem(name: "includes[]", value: "cover_art" ),
             URLQueryItem(name: "includes[]", value: "author" ),
+            URLQueryItem(name: "limit", value: "15" ),
         ]
         
         if(!title.isEmpty){
