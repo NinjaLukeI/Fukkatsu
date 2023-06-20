@@ -20,7 +20,7 @@ struct Feed: Decodable, Identifiable{
 
 struct feed_Attributes: Decodable{
     let volume: String?
-    let chapter: String //Which chapter it is
+    let chapter: String? //Which chapter it is
     let title: String? //Might not have a title
     let publishAt: String
     

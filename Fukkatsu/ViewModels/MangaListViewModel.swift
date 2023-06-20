@@ -30,6 +30,8 @@ import Foundation
         self.viewState == .fetching
     }
     
+    private(set) var isLoaded: Bool = false
+    
     func fetchManga(title: String = "") async {
         
         self.viewState = .loading
@@ -63,6 +65,8 @@ import Foundation
             let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
             items = manga.data
+            self.isLoaded = true
+            
         } catch {
             print(error)
         }
@@ -71,7 +75,7 @@ import Foundation
     
     func fetchMore() async {
         
-        self.offset += self.limit
+        self.offset += self.limit+1
         
         self.viewState = .fetching
         defer {self.viewState = .finished}

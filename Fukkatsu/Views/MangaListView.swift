@@ -52,7 +52,9 @@ struct MangaListView: View {
                     }
                 
                     .task{
-                        await mangaList.fetchManga()
+                        if !mangaList.isLoaded {
+                            await mangaList.fetchManga()
+                        }
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     

@@ -30,16 +30,15 @@ struct FeedView: View {
                         
                         NavigationLink(destination: ReaderView(chapter: item)){
                             
-                            Text("Chapter \(item.attributes.chapter): \(optionalCheck(value: item.attributes.title))")
-                        }
-                        
-                        
-                    }
-                    .task{
-                        print(item.id)
+                            Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
+                        }.buttonStyle(.plain)
                     }
                     
+                    
                 }
+            }
+            .task{
+                print("current feed belongs to \(manga.manga.id)")
             }
         }
         
