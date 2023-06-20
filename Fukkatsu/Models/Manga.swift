@@ -9,6 +9,7 @@ import Foundation
 
 struct MangaRoot: Decodable {
     let data: [Manga]
+    let total: Int
 }
 
 struct Manga: Decodable, Identifiable {

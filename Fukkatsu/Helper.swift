@@ -24,3 +24,13 @@ func optionalCheck(value: String?) -> String{
 //    
 //}
 
+func removeDuplicateElements(manga: [Manga]) -> [Manga] {
+    var uniqueManga = [Manga]()
+    for item in manga {
+        if !uniqueManga.contains(where: {$0.id == item.id }) {
+            uniqueManga.append(item)
+        }
+    }
+    return uniqueManga
+}
+

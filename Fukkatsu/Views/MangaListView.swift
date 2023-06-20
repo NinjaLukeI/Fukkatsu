@@ -34,12 +34,17 @@ struct MangaListView: View {
                                 NavigationLink(destination: FeedView(manga: MangaView(manga: item))){
                                     
                                     MangaView(manga: item)
+                                        .task{
+                                            if mangaList.hasReachedEnd(of: item) && !mangaList.isFetching && !mangaList.isLoading{
+                                                
+                                                await mangaList.fetchMore()
+                                                
+                                            }
+                                                
+                                        }
                                     
                                 }
-                                .buttonStyle(.plain)
-                                
-                                
-                                
+                                .buttonStyle(.plain)  
                             }
                             
                         }
