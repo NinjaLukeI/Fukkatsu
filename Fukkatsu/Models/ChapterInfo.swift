@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct FeedRoot: Decodable {
-    let data: [Feed]
+struct ChapterInfoRoot: Decodable {
+    let data: [ChapterInfo]
 }
 
-struct Feed: Decodable, Identifiable{
+struct ChapterInfo: Decodable, Identifiable{
     let id: String
     let type: String // realistically will always be a chapter but whatever
     
-    let attributes: feed_Attributes
+    let attributes: chInfo_Attributes
 }
 
-struct feed_Attributes: Decodable{
+struct chInfo_Attributes: Decodable{
     let volume: String?
     let chapter: String? //Which chapter it is
     let title: String? //Might not have a title

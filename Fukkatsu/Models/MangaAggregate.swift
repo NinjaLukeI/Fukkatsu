@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct MangaAggregate {
+struct MangaAggregate: Decodable {
     let result: String
     let volumes: [String: Volume]
 }
 
 // MARK: - Volume
-struct Volume {
+struct Volume: Decodable {
     let volume: String
     let count: Int
     let chapters: [String: ChapterAgg]
 }
 
 // MARK: - Chapter
-struct ChapterAgg {
+struct ChapterAgg: Decodable {
     let chapter, id: String
     let others: [String]
     let count: Int

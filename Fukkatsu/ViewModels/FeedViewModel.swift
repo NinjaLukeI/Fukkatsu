@@ -10,21 +10,14 @@ import Foundation
 @MainActor class FeedViewModel: ObservableObject{
     
     
-    @Published var items: [Feed] = []
+    @Published var items: [ChapterInfo] = []
     
     
     
-    func fetchFeed(mangaID: String) async -> [Feed]{
+    func fetchFeed(mangaID: String) async -> [ ChapterInfo]{
         
         let queryParams = [
             URLQueryItem(name: "translatedLanguage[]", value: "en" ),
-            URLQueryItem(name: "limit", value: "30" ),
-            URLQueryItem(name: "order[createdAt]", value: "asc" ),
-            URLQueryItem(name: "order[updatedAt]", value: "asc"),
-            URLQueryItem(name: "order[publishAt]", value: "asc"),
-            URLQueryItem(name: "order[readableAt]", value: "asc"),
-            URLQueryItem(name: "order[volume]", value: "asc"),
-            URLQueryItem(name: "order[chapter]", value: "asc"),
         ]
         
         print(queryParams)
@@ -32,11 +25,8 @@ import Foundation
         var url = URLComponents()
         url.scheme = "https"
         url.host = "api.mangadex.org"
-        url.path = "/manga/\(mangaID)/feed"
+        url.path = "/manga/\(mangaID)/aggregate"
         url.queryItems = queryParams
-        
-//        let url = URL(string: "https://api.mangadex.org/manga/\(mangaID)/feed?limit=30&translatedLanguage[]=en&order[createdAt]=asc&order[updatedAt]=asc&order[publishAt]=asc&order[readableAt]=asc&order[volume]=asc&order[chapter]=asc")!
-        
         
         
         var request = URLRequest(url: url.url!)
@@ -46,7 +36,7 @@ import Foundation
         do{
             let (data, _) = try await URLSession.shared.data(from: url.url!)
             
-            let manga = try JSONDecoder().decode(FeedRoot.self, from: data)
+            let manga = try JSONDecoder().decode(ChapterInfoRoot.self, from: data)
             
             return manga.data
         } catch {
@@ -59,6 +49,51 @@ import Foundation
     func populate(mangaID: String) async {
         let fetched = await fetchFeed(mangaID: mangaID)
         items = fetched
+    }
+    
+    func mangaAggregate(mangaID: String) async -> [MangaAggregate]{
+        
+        let queryParams = [
+            URLQueryItem(name: "translatedLanguage[]", value: "en" ),
+        ]
+        
+        print(queryParams)
+        
+        var url = URLComponents()
+        url.scheme = "https"
+        url.host = "api.mangadex.org"
+        url.path = "/manga/\(mangaID)/aggregate"
+        url.queryItems = queryParams
+        
+        
+        var request = URLRequest(url: url.url!)
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    
+        do{
+            let (data, _) = try await URLSession.shared.data(from: url.url!)
+            
+            let manga = try JSONDecoder().decode([MangaAggregate].self, from: data)
+            
+            
+            return manga
+        } catch {
+            print(error)
+            return []
+        }
+        
+    }
+    
+}
+
+func sortedManga(mangaArr: [MangaAggregate]) -> [MangaAggregate]{
+    
+    for(index, element) in mangaArr.enumerated(){
+        
+        for(index, element) in element.volumes[index]?.chapters.enumerated(){
+            
+            
+        }
     }
     
 }
