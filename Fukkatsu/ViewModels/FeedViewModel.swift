@@ -1,5 +1,5 @@
 //
-//  MangaChaptersModel.swift
+//  FeedViewModel.swift
 //  Fukkatsu
 //  Handles chapter retrieval
 //  Created by Luke Ibeachum on 23/05/2023.
