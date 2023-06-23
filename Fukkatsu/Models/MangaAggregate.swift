@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OrderedDictionary
 
 struct MangaAggregate: Decodable {
     let result: String
@@ -16,12 +17,13 @@ struct MangaAggregate: Decodable {
 struct Volume: Decodable {
     let volume: String
     let count: Int
-    let chapters: [String: ChapterAgg]
+    let chapters: OrderedDictionary<String, ChapterAgg>
+    
 }
 
 // MARK: - Chapter
 struct ChapterAgg: Decodable {
     let chapter, id: String
     let others: [String]
-    let count: Int
+    //let count: Int
 }

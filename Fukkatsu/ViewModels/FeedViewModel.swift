@@ -86,14 +86,5 @@ import Foundation
     
 }
 
-func sortedManga(mangaArr: [MangaAggregate]) -> [MangaAggregate]{
     
-    for(index, element) in mangaArr.enumerated(){
-        
-        for(index, element) in element.volumes[index]?.chapters.enumerated(){
-            
-            
-        }
-    }
-    
-}
+

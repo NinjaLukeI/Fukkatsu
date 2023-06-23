@@ -22,6 +22,7 @@
 		943F928F29883CB2007661AE /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943F928E29883CB2007661AE /* Helper.swift */; };
 		946F9F142964F1FA001AB55A /* MangaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F9F132964F1FA001AB55A /* MangaView.swift */; };
 		94CB34442A449E630098F85B /* MangaAggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CB34432A449E630098F85B /* MangaAggregate.swift */; };
+		94CB34472A4535840098F85B /* OrderedDictionary in Frameworks */ = {isa = PBXBuildFile; productRef = 94CB34462A4535840098F85B /* OrderedDictionary */; };
 		94F3CF5A2A1D4C81005E8677 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F3CF592A1D4C81005E8677 /* FeedViewModel.swift */; };
 		94F3CF5C2A1D5048005E8677 /* ChapterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F3CF5B2A1D5048005E8677 /* ChapterInfo.swift */; };
 		94F3CF602A24F57E005E8677 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F3CF5F2A24F57E005E8677 /* ReaderView.swift */; };
@@ -79,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94CB34472A4535840098F85B /* OrderedDictionary in Frameworks */,
 				94FB7E542A39100300A801B2 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +214,7 @@
 			name = Fukkatsu;
 			packageProductDependencies = (
 				94FB7E532A39100300A801B2 /* Kingfisher */,
+				94CB34462A4535840098F85B /* OrderedDictionary */,
 			);
 			productName = Fukkatsu;
 			productReference = 52A0E83B293F818300E641B3 /* Fukkatsu.app */;
@@ -287,6 +290,7 @@
 			mainGroup = 52A0E832293F818200E641B3;
 			packageReferences = (
 				94FB7E522A39100200A801B2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				94CB34452A4535840098F85B /* XCRemoteSwiftPackageReference "OrderedDictionary" */,
 			);
 			productRefGroup = 52A0E83C293F818300E641B3 /* Products */;
 			projectDirPath = "";
@@ -671,6 +675,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		94CB34452A4535840098F85B /* XCRemoteSwiftPackageReference "OrderedDictionary" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lukaskubanek/OrderedDictionary";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		94FB7E522A39100200A801B2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -682,6 +694,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		94CB34462A4535840098F85B /* OrderedDictionary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94CB34452A4535840098F85B /* XCRemoteSwiftPackageReference "OrderedDictionary" */;
+			productName = OrderedDictionary;
+		};
 		94FB7E532A39100300A801B2 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 94FB7E522A39100200A801B2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
