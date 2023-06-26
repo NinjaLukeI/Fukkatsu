@@ -21,7 +21,11 @@ struct FeedView: View {
         HStack{manga}
             .task{
                 await mangaFeed.populate(mangaID: manga.manga.id)
+                await mangaFeed.populateAgg(mangaID: manga.manga.id)
+//                mangaFeed.sortChapters()
             }
+        
+        
         ScrollView{
             LazyVGrid(columns: columns, spacing: 10){
                 ForEach(mangaFeed.items){
@@ -39,6 +43,7 @@ struct FeedView: View {
             }
             .task{
                 print("current feed belongs to \(manga.manga.id)")
+                print("the aggregate items are\(mangaFeed.aggitems)")
             }
         }
         
