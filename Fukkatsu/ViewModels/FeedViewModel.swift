@@ -13,10 +13,31 @@ import OrderedDictionary
     
     @Published var items: [ChapterInfo] = []
     @Published var aggitems: [MangaAggregate] = []
+    @Published private(set) var loadState: LoadState?
+    var sortedChapters = OrderedDictionary<String, ChapterAgg>()
+    
+    enum LoadState{
+        case loading
+        case finished
+        case fetching
+    }
+    
+    var isLoading: Bool {
+        self.loadState == .loading
+    }
+    
+    var isFetching: Bool {
+        self.loadState == .fetching
+    }
+    
+    private(set) var isLoaded: Bool = false
     
     
     
     func fetchFeed(mangaID: String) async -> [ChapterInfo]{
+        
+        self.loadState = .loading
+        defer{self.loadState = .finished}
         
         let queryParams = [
                     URLQueryItem(name: "translatedLanguage[]", value: "en" ),
@@ -47,7 +68,7 @@ import OrderedDictionary
                     
                     let manga = try JSONDecoder().decode(ChapterInfoRoot.self, from: data)
                     
-                    
+                    self.isLoaded = true
                     return manga.data
                 } catch {
                     print(error)
@@ -61,18 +82,16 @@ import OrderedDictionary
         items = fetched
     }
     
-    func populateAgg(mangaID: String) async {
-        let fetched = await mangaAggregate(mangaID: mangaID)
-        aggitems = fetched
-    }
     
-    func mangaAggregate(mangaID: String) async -> [MangaAggregate]{
+    func mangaAggregate(mangaID: String) async{
+        
+        self.loadState = .fetching
+        defer {self.loadState = .finished}
         
         let queryParams = [
             URLQueryItem(name: "translatedLanguage[]", value: "en" ),
         ]
         
-        print(queryParams)
         
         var url = URLComponents()
         url.scheme = "https"
@@ -88,57 +107,73 @@ import OrderedDictionary
         do{
             let (data, _) = try await URLSession.shared.data(from: url.url!)
             
-            let manga = try JSONDecoder().decode([MangaAggregate].self, from: data)
+            let manga = try JSONDecoder().decode(MangaAggregate.self, from: data)
             
-            return manga
+            aggitems = [manga]
+//            print(aggitems)
             
         } catch {
             print("the error in setting the aggregate is\(error)")
-            return []
+
         }
         
     }
     
     func sortChapters(){
+
+//        self.aggitems[0].volumes.forEach({
+//            print(("the chapters are \($0.value.chapters.keys)")
+//        }))
         
         var sortedVolumes = OrderedDictionary<String, Volume>(
             uniqueKeysWithValues: self.aggitems[0].volumes
         )
+
+        var noneVolume: [String:Volume] = [:]
+        var nextVolume: Int = 0
         
-        var sortedChapters = OrderedDictionary<String, ChapterAgg>()
+        sortedVolumes.forEach({
+            if($0.key.description == "none"){
+                noneVolume[$0.key] = $0.value
+                nextVolume = (sortedVolumes.index(forKey: $0.key) ?? 0)
+                sortedVolumes.removeValue(forKey: $0.key)
+            }
+        })
+
+        sortedVolumes = sortedVolumes.sorted(by: {Double($0.value.volume)! < Double($1.value.volume)! })
+        if(!noneVolume.isEmpty){
+            sortedVolumes.insert(noneVolume.first!, at: nextVolume)
+        }
         
-        sortedVolumes = sortedVolumes.sorted(by: {$0.key < $1.key})
-        
+            
+        print("THE SORTED VOLUMES ARE HERE: \(sortedVolumes.count)")
+
         sortedVolumes.forEach({volume in
             volume.value.chapters.forEach({
-                sortedChapters[$0.key] = $0.value.self
+                self.sortedChapters[$0.key] = $0.value.self
             })
         })
         
-        sortedChapters = sortedChapters.sorted(by: {$0.key < $1.key})
+        var noNumChapter: [String:ChapterAgg] = [:]
+
+        self.sortedChapters.forEach({
+            if(!$0.value.chapter.isInt){
+                noNumChapter[$0.key] = $0.value
+                sortedChapters.removeValue(forKey: $0.key)
+            }
+        })
         
-        print("THE SORTED CHAPTERS ARE HERE: \(sortedChapters)")
+        self.sortedChapters = self.sortedChapters.sorted(by: {Double($0.value.chapter)! < Double($1.value.chapter)! })
+        if(!noNumChapter.isEmpty){
+            noNumChapter.forEach({
+                sortedChapters[$0.key.description] = $0.value.self
+            })
+        }
         
-        
-//        var sortedChapters: [String:ChapterAgg] = [:]
-        
-        
-    
-        
-//        var sortedChapters = OrderedDictionary<String, ChapterAgg>(
-//            uniqueKeysWithValues: self.aggitems[0].vo
-//        )
-        
-        
-        
-//        sortedVolumes = sortedVolumes.forEach({
-//            $0.value.chapters.forEach({
-//                sortedChapters[$0.key] = $0.value
-//            })
-//        })
-        
+
+        print("THE SORTED CHAPTERS ARE HERE: \(self.sortedChapters)")
     }
-    
+
 }
 
 

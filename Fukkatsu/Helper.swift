@@ -15,14 +15,13 @@ func optionalCheck(value: String?) -> String{
     return ""
 }
 
-//extension for URLComponents to accept dictionaries
-//extension URLComponents {
-//    
-//    mutating func setQueryItems(with parameters: [String: String]){
-//        self.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value)}
-//    }
-//    
-//}
+//check if a string can be converted to an int 
+extension String {
+    var isInt: Bool{
+        return Double(self) != nil
+    }
+    
+}
 
 func removeDuplicateElements(manga: [Manga]) -> [Manga] {
     var uniqueManga = [Manga]()
