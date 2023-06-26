@@ -166,7 +166,8 @@ import OrderedDictionary
         self.sortedChapters = self.sortedChapters.sorted(by: {Double($0.value.chapter)! < Double($1.value.chapter)! })
         if(!noNumChapter.isEmpty){
             noNumChapter.forEach({
-                sortedChapters[$0.key.description] = $0.value.self
+//                sortedChapters[$0.key.description] = $0.value.self
+                sortedChapters.insert($0.self, at: sortedChapters.endIndex)
             })
         }
         
