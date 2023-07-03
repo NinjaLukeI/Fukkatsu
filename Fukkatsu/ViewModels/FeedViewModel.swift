@@ -16,10 +16,12 @@ import OrderedDictionary
     @Published private(set) var loadState: LoadState?
     var sortedChapters = OrderedDictionary<String, ChapterAgg>()
     
+    
     enum LoadState{
         case loading
         case finished
         case fetching
+        case sorting
     }
     
     var isLoading: Bool {
@@ -32,21 +34,81 @@ import OrderedDictionary
     
     private(set) var isLoaded: Bool = false
     
+    func getChapters() async{
+        
+        self.loadState = .loading
+        defer{self.loadState = .finished}
+        
+        var queryParams: [URLQueryItem] = [
+                    URLQueryItem(name: "translatedLanguage[]", value: "en" ),
+                    URLQueryItem(name: "limit", value: "25" ),
+                    URLQueryItem(name: "order[createdAt]", value: "asc" ),
+                    URLQueryItem(name: "order[updatedAt]", value: "asc"),
+                    URLQueryItem(name: "order[publishAt]", value: "asc"),
+                    URLQueryItem(name: "order[readableAt]", value: "asc"),
+                    URLQueryItem(name: "order[volume]", value: "asc"),
+                    URLQueryItem(name: "order[chapter]", value: "asc"),
+                ]
+        
+        print("how many chapters are here \(self.sortedChapters)")
+        
+        for(index, element) in sortedChapters.enumerated(){
+            if(index == 25){
+                break
+            }
+            queryParams.append(URLQueryItem(name: "ids[]", value: element.value.id))
+            print(element.value.chapter)
+        }
+        
+        print("QUERY PARAMS ARE \(queryParams)")
+        
+//        self.sortedChapters.forEach({
+//
+//            queryParams.append(URLQueryItem(name: "ids[]", value: $0.value.id))
+//            counter+=1
+//
+//            if(counter==100){
+//                return
+//            }
+//
+        
+        //if sortedchapters is > 100 then it needs to stop. PLEASE IMPLEMENT THIS FOR THE SCROLLING. A MAX OF 100 chapters only can be
+        //sent to the query
+        
+//        print("the query params are \(queryParams)")
+        
+        var url = URLComponents()
+        url.scheme = "https"
+        url.host = "api.mangadex.org"
+        url.path = "/chapter/"
+        url.queryItems = queryParams
+        
+        var request = URLRequest(url: url.url!)
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    
+        do{
+            let (data, _) = try await URLSession.shared.data(from: url.url!)
+            
+            let manga = try JSONDecoder().decode(ChapterInfoRoot.self, from: data)
+            
+            self.isLoaded = true
+//            manga.data = manga.data.sorted(by: {Double($0.attributes.chapter! )! < Double($1.attributes.chapter!)!}) //need to write in code to check if value of chapter is null
+            self.items = manga.data
+        } catch {
+            print(error)
+        }
+        
+    }
     
-    
-    func fetchFeed(mangaID: String) async -> [ChapterInfo]{
+    func fetchFeed(mangaID: String) async{
         
         self.loadState = .loading
         defer{self.loadState = .finished}
         
         let queryParams = [
                     URLQueryItem(name: "translatedLanguage[]", value: "en" ),
-                    URLQueryItem(name: "limit", value: "30" ),
-                    URLQueryItem(name: "order[createdAt]", value: "asc" ),
-                    URLQueryItem(name: "order[updatedAt]", value: "asc"),
-                    URLQueryItem(name: "order[publishAt]", value: "asc"),
-                    URLQueryItem(name: "order[readableAt]", value: "asc"),
-                    URLQueryItem(name: "order[volume]", value: "asc"),
+                    URLQueryItem(name: "limit", value: "100" ),
                     URLQueryItem(name: "order[chapter]", value: "asc"),
                 ]
                 
@@ -69,17 +131,24 @@ import OrderedDictionary
                     let manga = try JSONDecoder().decode(ChapterInfoRoot.self, from: data)
                     
                     self.isLoaded = true
-                    return manga.data
+                    self.items = manga.data
+                    removeDuplicateElements()
+                    
+                    print("the unsorted feed is: \(self.items)")
+                    
+                    
+                    
                 } catch {
                     print(error)
-                    return []
                 }
         
     }
     
     func populate(mangaID: String) async {
-        let fetched = await fetchFeed(mangaID: mangaID)
-        items = fetched
+//        await mangaAggregate(mangaID: mangaID)
+//        await sortAggregate()
+//        await getChapters()
+        await fetchFeed(mangaID: mangaID)
     }
     
     
@@ -119,34 +188,36 @@ import OrderedDictionary
         
     }
     
-    func sortChapters(){
+    func sortAggregate() async{
 
-//        self.aggitems[0].volumes.forEach({
-//            print(("the chapters are \($0.value.chapters.keys)")
-//        }))
+        
+        self.loadState = .sorting
+        defer{self.loadState = .finished}
+        
+        guard !self.aggitems.isEmpty else {
+            return
+        }
         
         var sortedVolumes = OrderedDictionary<String, Volume>(
             uniqueKeysWithValues: self.aggitems[0].volumes
         )
 
         var noneVolume: [String:Volume] = [:]
-        var nextVolume: Int = 0
         
         sortedVolumes.forEach({
             if($0.key.description == "none"){
                 noneVolume[$0.key] = $0.value
-                nextVolume = (sortedVolumes.index(forKey: $0.key) ?? 0)
                 sortedVolumes.removeValue(forKey: $0.key)
             }
         })
 
         sortedVolumes = sortedVolumes.sorted(by: {Double($0.value.volume)! < Double($1.value.volume)! })
         if(!noneVolume.isEmpty){
-            sortedVolumes.insert(noneVolume.first!, at: nextVolume)
+            sortedVolumes.insert(noneVolume.first!, at: sortedVolumes.endIndex)
         }
         
             
-        print("THE SORTED VOLUMES ARE HERE: \(sortedVolumes.count)")
+        print("THE SORTED VOLUMES ARE HERE: \(sortedVolumes)")
 
         sortedVolumes.forEach({volume in
             volume.value.chapters.forEach({
@@ -157,7 +228,7 @@ import OrderedDictionary
         var noNumChapter: [String:ChapterAgg] = [:]
 
         self.sortedChapters.forEach({
-            if(!$0.value.chapter.isInt){
+            if(!$0.value.chapter.isDouble){
                 noNumChapter[$0.key] = $0.value
                 sortedChapters.removeValue(forKey: $0.key)
             }
@@ -166,16 +237,74 @@ import OrderedDictionary
         self.sortedChapters = self.sortedChapters.sorted(by: {Double($0.value.chapter)! < Double($1.value.chapter)! })
         if(!noNumChapter.isEmpty){
             noNumChapter.forEach({
-//                sortedChapters[$0.key.description] = $0.value.self
                 sortedChapters.insert($0.self, at: sortedChapters.endIndex)
             })
         }
         
 
-        print("THE SORTED CHAPTERS ARE HERE: \(self.sortedChapters)")
+//        print("THE SORTED CHAPTERS ARE HERE: \(self.sortedChapters)")
+    }
+    
+//    func sortFeed() async{
+//
+////
+////        self.loadState = .sorting
+////        defer{self.loadState = .finished}
+//
+//        guard !self.items.isEmpty else {
+//            return
+//        }
+//
+//        removeDuplicateElements()
+//
+//        var cantBeSorted: [ChapterInfo] = []
+//
+////        for (i, element) in self.items.enumerated(){
+////            if !element.attributes.chapter!.isDouble{
+////                cantBeSorted.append(element)
+////                self.items.remove(at: i)
+////            }
+////        }
+//
+//        print("cant be sorted items: \(cantBeSorted)")
+////        print("items with non-doubles removed\(self.items)")
+//
+////        self.items = self.items.sorted(by: {Double($0.attributes.chapter!)! < Double($1.attributes.chapter!)! })
+//
+//        cantBeSorted.forEach({
+//            self.items.append($0.self)
+//        })
+//
+//        print("the sorted feed is \(self.items)")
+//
+//
+//
+//
+//    }
+    
+    func removeDuplicateElements(){
+        var uniqueItems = [ChapterInfo]()
+        
+        for (i, element) in self.items.enumerated(){
+            if !(element.attributes.externalUrl?.isEmpty ?? true){
+                self.items.remove(at: i)
+            }
+        }
+        
+        for item in self.items{
+            
+            if !uniqueItems.contains(where: {$0.attributes.chapter == item.attributes.chapter}){
+                uniqueItems.append(item)
+            }
+        }
+        self.items = uniqueItems
     }
 
 }
+
+
+
+
 
 
 

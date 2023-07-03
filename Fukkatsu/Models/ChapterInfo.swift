@@ -8,14 +8,23 @@
 import Foundation
 
 struct ChapterInfoRoot: Decodable {
-    let data: [ChapterInfo]
+    var data: [ChapterInfo]
 }
 
-struct ChapterInfo: Decodable, Identifiable{
+struct ChapterInfo: Decodable, Identifiable, Hashable, Equatable{
     let id: String
     let type: String // realistically will always be a chapter but whatever
     
     let attributes: chInfo_Attributes
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func ==(lhs: ChapterInfo, rhs: ChapterInfo) -> Bool {
+        return lhs.attributes.chapter == rhs.attributes.chapter
+    }
+    
 }
 
 struct chInfo_Attributes: Decodable{
@@ -23,5 +32,6 @@ struct chInfo_Attributes: Decodable{
     let chapter: String? //Which chapter it is
     let title: String? //Might not have a title
     let publishAt: String
+    let externalUrl: String?
     
 }

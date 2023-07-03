@@ -42,6 +42,7 @@ import Foundation
             URLQueryItem(name: "includes[]", value: "cover_art" ),
             URLQueryItem(name: "includes[]", value: "author" ),
             URLQueryItem(name: "limit", value: String(limit) ),
+            URLQueryItem(name: "hasAvailableChapters", value: "1" ),
         ]
         
 //        if(!title.isEmpty){

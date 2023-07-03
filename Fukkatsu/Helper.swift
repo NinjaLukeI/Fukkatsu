@@ -15,9 +15,9 @@ func optionalCheck(value: String?) -> String{
     return ""
 }
 
-//check if a string can be converted to an int 
+//check if a string is a double
 extension String {
-    var isInt: Bool{
+    var isDouble: Bool{
         return Double(self) != nil
     }
     

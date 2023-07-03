@@ -20,11 +20,8 @@ struct FeedView: View {
     var body: some View {
         HStack{manga}
             .task{
+                
                 await mangaFeed.populate(mangaID: manga.manga.id)
-                await mangaFeed.mangaAggregate(mangaID: manga.manga.id)
-                if(mangaFeed.isLoaded){
-                    mangaFeed.sortChapters()
-                }
             }
         
         
