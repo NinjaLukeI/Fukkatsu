@@ -86,14 +86,13 @@ import OrderedDictionary
     func removeDuplicateElements(){
         var uniqueItems = [ChapterInfo]()
         
-        for (i, element) in self.items.enumerated(){
-            if !(element.attributes.externalUrl?.isEmpty ?? true){
-                self.items.remove(at: i)
-            }
-        }
+        
+        self.items = self.items.filter({
+            !($0.attributes.externalUrl?.isEmpty ?? false)
+        })
         
         for item in self.items{
-            
+
             if !uniqueItems.contains(where: {$0.attributes.chapter == item.attributes.chapter}){
                 uniqueItems.append(item)
             }
