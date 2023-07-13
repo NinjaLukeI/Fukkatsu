@@ -88,7 +88,7 @@ import OrderedDictionary
         
         
         self.items = self.items.filter({
-            !($0.attributes.externalUrl?.isEmpty ?? false)
+            ($0.attributes.externalUrl == nil)
         })
         
         for item in self.items{
