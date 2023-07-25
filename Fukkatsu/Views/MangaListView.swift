@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MangaListView: View {
     
-    @StateObject private var mangaList = MangaListViewModel()
+    @ObservedObject private var mangaList = MangaListViewModel()
     
     let columns = [
         GridItem(.flexible()),
@@ -19,7 +19,7 @@ struct MangaListView: View {
     ]
     
     
-    @State private var searchText: String = ""
+    @State private var searchText = ""
     
     var body: some View {
         
@@ -49,7 +49,7 @@ struct MangaListView: View {
                             
                         }
                         .padding(.horizontal)
-                    }
+                    }.overlay(SearchView(queryString: searchText))
                 
                     .task{
                         if !mangaList.isLoaded {
@@ -69,19 +69,6 @@ struct MangaListView: View {
         .searchable(text: $searchText)
         .keyboardType(.asciiCapable)
         .autocorrectionDisabled()
-        .onChange(of: searchText) { value in
-            print(value)
-            //handles searching
-//            Task{
-//                if !searchText.isEmpty{
-//                    await mangaList.fetchManga(title: searchText)
-//                }
-//                else{
-//                    await mangaList.fetchManga()
-//                }
-//
-//            }
-        }
         
     }
     
@@ -91,4 +78,20 @@ struct MangaListView_Previews: PreviewProvider {
     static var previews: some View {
         MangaListView()
     }
+}
+
+
+struct SearchView: View{
+    
+    var queryString: String
+    @Environment(\.isSearching) var isSearching
+    
+    var body: some View{
+        
+        if isSearching{
+            Image("op")
+        }
+        
+    }
+    
 }
