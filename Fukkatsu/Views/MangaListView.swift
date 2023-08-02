@@ -49,7 +49,7 @@ struct MangaListView: View {
                             
                         }
                         .padding(.horizontal)
-                    }.overlay(SearchView(queryString: searchText))
+                    }
                 
                     .task{
                         if !mangaList.isLoaded {
@@ -81,17 +81,3 @@ struct MangaListView_Previews: PreviewProvider {
 }
 
 
-struct SearchView: View{
-    
-    var queryString: String
-    @Environment(\.isSearching) var isSearching
-    
-    var body: some View{
-        
-        if isSearching{
-            Image("op")
-        }
-        
-    }
-    
-}

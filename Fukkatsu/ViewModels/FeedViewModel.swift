@@ -91,13 +91,20 @@ import OrderedDictionary
             ($0.attributes.externalUrl == nil)
         })
         
-        for item in self.items{
-
-            if !uniqueItems.contains(where: {$0.attributes.chapter == item.attributes.chapter}){
-                uniqueItems.append(item)
-            }
+        if self.items.isEmpty{
+            
         }
-        self.items = uniqueItems
+        else{
+            for item in self.items{
+
+                if !uniqueItems.contains(where: {$0.attributes.chapter == item.attributes.chapter}){
+                    uniqueItems.append(item)
+                }
+            }
+            self.items = uniqueItems
+        }
+        
+        
     }
     
 }

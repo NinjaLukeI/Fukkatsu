@@ -46,7 +46,7 @@ struct MangaView: View {
             
             
             
-            Text(manga.relationships[0].attributes!.authorName!)
+            Text(manga.relationships[0].attributes!.authorName ?? "No Author")
 //            Text("hi")
                 .font(.caption2)
                 .fixedSize(horizontal: false, vertical: true)
