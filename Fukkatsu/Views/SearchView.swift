@@ -18,6 +18,15 @@ struct SearchView: View{
         
         NavigationView{
             SearchContent(queryString: queryString)
+                .toolbar{
+                    ToolbarItem(placement: .principal) {
+                        
+                        Text("Search").font(.title3).fontWeight(.regular)
+                    }
+                    
+                }
+                .navigationBarTitleDisplayMode(.inline)
+
         }
         .searchable(text: $queryString, prompt: "Search For Manga")
         .keyboardType(.asciiCapable)
