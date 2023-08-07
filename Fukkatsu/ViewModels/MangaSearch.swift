@@ -44,8 +44,6 @@ import Foundation
             URLQueryItem(name: "hasAvailableChapters", value: "1" ),
             URLQueryItem(name: "title", value: title),
             URLQueryItem(name: "order[relevance]", value: "desc"),
-            
-            
         ]
         
         var url = URLComponents()

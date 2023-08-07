@@ -50,7 +50,6 @@ struct SearchContent: View{
 
     ]
     
-
     
     var body: some View{
         VStack{
@@ -59,7 +58,7 @@ struct SearchContent: View{
                     
                     LazyVGrid(columns: columns, spacing: 10){
                         
-                        ForEach(mangaSearch.items, id: \.self){ item in
+                        ForEach(mangaSearch.items){ item in
                             NavigationLink(destination: FeedView(manga: MangaView(manga: item))){
                                 
                                 MangaView(manga: item)
