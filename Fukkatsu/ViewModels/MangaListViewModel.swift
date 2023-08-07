@@ -89,6 +89,7 @@ import Foundation
             URLQueryItem(name: "includes[]", value: "author" ),
             URLQueryItem(name: "limit", value: String(self.limit)),
             URLQueryItem(name: "offset", value: String(self.offset)),
+            URLQueryItem(name: "hasAvailableChapters", value: "1" ),
         ]
         
         

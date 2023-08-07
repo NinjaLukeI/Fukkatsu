@@ -12,13 +12,30 @@ struct MangaRoot: Decodable {
     let total: Int
 }
 
-struct Manga: Decodable, Identifiable {
+struct Manga: Decodable, Identifiable{
+    
     let id: String
+    
     let type: String
     
     let attributes: manga_Attributes
     let relationships: [manga_Relationships]
+    
+    
 }
+
+extension Manga: Hashable, Equatable{
+    
+    static func == (lhs: Manga, rhs: Manga) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+            return hasher.combine(id)
+    }
+    
+}
+
 
 //main attributes for manga
 struct manga_Attributes: Decodable {

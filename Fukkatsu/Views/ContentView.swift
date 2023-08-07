@@ -22,6 +22,10 @@ struct ContentView: View {
                 .tabItem{
                     Image(systemName: "book.closed")
                 }
+            SearchView()
+                .tabItem{
+                    Image(systemName: "magnifyingglass")
+                }
         }
         .tint(.blue)
         .onAppear(){

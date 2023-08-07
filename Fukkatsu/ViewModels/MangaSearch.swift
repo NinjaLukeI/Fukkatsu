@@ -43,6 +43,8 @@ import Foundation
             URLQueryItem(name: "limit", value: String(limit) ),
             URLQueryItem(name: "hasAvailableChapters", value: "1" ),
             URLQueryItem(name: "title", value: title),
+            URLQueryItem(name: "order[relevance]", value: "desc"),
+            
             
         ]
         
@@ -62,7 +64,7 @@ import Foundation
             
             let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
-            items = manga.data
+            items = Array(Set(manga.data))
             self.isLoaded = true
             
         } catch {
@@ -71,7 +73,7 @@ import Foundation
     }
     
     
-    func fetchMore() async {
+    func fetchMore(title: String) async {
         
         self.offset += self.limit+1
         
@@ -86,6 +88,9 @@ import Foundation
             URLQueryItem(name: "includes[]", value: "author" ),
             URLQueryItem(name: "limit", value: String(self.limit)),
             URLQueryItem(name: "offset", value: String(self.offset)),
+            URLQueryItem(name: "hasAvailableChapters", value: "1" ),
+            URLQueryItem(name: "title", value: title),
+            URLQueryItem(name: "order[relevance]", value: "desc"),
         ]
         
         
@@ -105,7 +110,7 @@ import Foundation
             
             let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
-            items += manga.data
+            items += Array(Set(manga.data))
         } catch {
             print(error)
         }

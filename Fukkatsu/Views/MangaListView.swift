@@ -66,10 +66,6 @@ struct MangaListView: View {
                         
                     }
             }
-        .searchable(text: $searchText)
-        .keyboardType(.asciiCapable)
-        .autocorrectionDisabled()
-        
     }
     
 }
