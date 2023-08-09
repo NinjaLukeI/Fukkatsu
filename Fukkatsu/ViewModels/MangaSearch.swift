@@ -14,6 +14,7 @@ import Foundation
     
     var limit: Int = 15
     var offset: Int = 0
+    var total: Int = 0
     
     enum ViewState{
         case loading
@@ -33,6 +34,7 @@ import Foundation
     
     func fetchManga(title: String) async {
         
+        
         self.viewState = .loading
         defer {self.viewState = .finished}
         
@@ -40,7 +42,7 @@ import Foundation
             URLQueryItem(name: "availableTranslatedLanguage[]", value: "en" ),
             URLQueryItem(name: "includes[]", value: "cover_art" ),
             URLQueryItem(name: "includes[]", value: "author" ),
-            URLQueryItem(name: "limit", value: String(limit) ),
+            URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "hasAvailableChapters", value: "1" ),
             URLQueryItem(name: "title", value: title),
             URLQueryItem(name: "order[relevance]", value: "desc"),
@@ -63,11 +65,14 @@ import Foundation
             let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
             items = Array(Set(manga.data))
+            self.total = manga.total
             self.isLoaded = true
             
         } catch {
             print(error)
         }
+        
+       
     }
     
     
@@ -112,6 +117,11 @@ import Foundation
         } catch {
             print(error)
         }
+        
+//        if self.offset >= self.total{
+//            self.offset = 0
+//        }
+        
     }
     
     

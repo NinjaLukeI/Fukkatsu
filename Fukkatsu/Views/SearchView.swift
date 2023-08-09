@@ -34,7 +34,9 @@ struct SearchView: View{
         .onSubmit(of: .search){
             Task{
                 print(queryString)
+                mangaSearch.offset = 0
                 await mangaSearch.fetchManga(title: queryString)
+                
             }
         }
         .environmentObject(mangaSearch)

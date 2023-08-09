@@ -35,7 +35,7 @@ struct MangaListView: View {
                                     
                                     MangaView(manga: item)
                                         .task{
-                                            if mangaList.hasReachedEnd(of: item) && !mangaList.isFetching && !mangaList.isLoading{
+                                            if mangaList.hasReachedEnd(of: item) && mangaList.viewState == .finished {
                                                 
                                                 await mangaList.fetchMore()
                                                 
