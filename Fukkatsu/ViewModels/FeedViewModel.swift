@@ -15,6 +15,9 @@ import OrderedDictionary
     @Published var aggitems: [MangaAggregate] = []
     @Published private(set) var loadState: LoadState?
     var sortedChapters = OrderedDictionary<String, ChapterAgg>()
+    var count = 0
+    
+    var offset = 0
     
     
     enum LoadState{
@@ -67,6 +70,58 @@ import OrderedDictionary
                     
                     self.isLoaded = true
                     self.items = manga.data
+                    self.count = manga.total
+                    removeDuplicateElements()
+                    
+                    print("the unsorted feed is: \(self.items)")
+                    
+                    
+                    
+                } catch {
+                    print(error)
+                }
+        
+    }
+    
+    func fetchMore(mangaID: String) async{
+        
+        if self.items.count == self.count{
+            return
+        }
+        
+        self.loadState = .fetching
+        defer{self.loadState = .finished}
+        
+        self.offset += 100
+        
+        
+        let queryParams = [
+                    URLQueryItem(name: "translatedLanguage[]", value: "en" ),
+                    URLQueryItem(name: "limit", value: "100" ),
+                    URLQueryItem(name: "offset", value: String(self.offset)),
+                    URLQueryItem(name: "order[chapter]", value: "asc"),
+                ]
+                
+                print(queryParams)
+                
+                var url = URLComponents()
+                url.scheme = "https"
+                url.host = "api.mangadex.org"
+                url.path = "/manga/\(mangaID)/feed"
+                url.queryItems = queryParams
+                
+                
+                var request = URLRequest(url: url.url!)
+
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                            
+                do{
+                    let (data, _) = try await URLSession.shared.data(from: url.url!)
+                    
+                    let manga = try JSONDecoder().decode(ChapterInfoRoot.self, from: data)
+                    
+                    self.isLoaded = true
+                    self.items += manga.data
                     removeDuplicateElements()
                     
                     print("the unsorted feed is: \(self.items)")
@@ -104,6 +159,15 @@ import OrderedDictionary
             self.items = uniqueItems
         }
         
+        
+    }
+    
+    func hasReachedEnd(of item: ChapterInfo) -> Bool{
+        
+        if item.id == self.items.last?.id{
+            return true
+        }
+        return false
         
     }
     
