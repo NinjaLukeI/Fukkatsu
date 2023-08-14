@@ -20,8 +20,10 @@ struct FeedView: View {
     var body: some View {
         HStack{manga}
             .task{
+                if mangaFeed.loadState != .finished{
+                    await mangaFeed.populate(mangaID: manga.manga.id)
+                }
                 
-                await mangaFeed.populate(mangaID: manga.manga.id)
             }
         
         
