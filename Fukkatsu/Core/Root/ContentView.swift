@@ -26,6 +26,10 @@ struct ContentView: View {
                 .tabItem{
                     Image(systemName: "magnifyingglass")
                 }
+            LoginView()
+                .tabItem{
+                    Image(systemName: "person")
+                }
         }
         .tint(.blue)
         .onAppear(){
