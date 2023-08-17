@@ -13,7 +13,7 @@ struct LoginView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
-        NavigationStack{
+        NavigationView{
             VStack{
                 // image
                 Image("anime_test_logopng")
@@ -45,7 +45,6 @@ struct LoginView: View {
                 } label: {
                     HStack{
                         Text("Sign In")
-                            .fontWeight(.semibold)
                         Image("right_arrow")
                             .resizable()
                             .frame(width: 32,height: 32)
@@ -70,7 +69,6 @@ struct LoginView: View {
                     HStack(spacing: 3){
                         Text("Don't have an account?")
                         Text("Sign up")
-                            .fontWeight(.bold)
                     }
                     .font(.system(size: 14))
                 }

@@ -57,12 +57,10 @@ struct SignUpView: View {
                         if password == confirmPassword {
                             Image(systemName: "checkmark.circle.fill")
                                 .imageScale(.large)
-                                .fontWeight(.bold)
                                 .foregroundColor(Color(.systemGreen))
                         } else {
                             Image(systemName: "xmark.circle.fill")
                                 .imageScale(.large)
-                                .fontWeight(.bold)
                                 .foregroundColor(Color(.systemRed))
                         }
                     }
@@ -80,7 +78,6 @@ struct SignUpView: View {
                 }label: {
                     HStack{
                         Text("Sign Up")
-                            .fontWeight(.semibold)
                         Image("right_arrow")
                             .resizable()
                             .frame(width: 32,height: 32)
@@ -108,7 +105,6 @@ struct SignUpView: View {
                     HStack(spacing: 3){
                         Text("Already have an account?")
                         Text("Login")
-                            .fontWeight(.bold)
                     }
                     .font(.system(size: 14))
             }

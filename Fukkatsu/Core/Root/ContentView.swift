@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @EnvironmentObject var viewModel : AuthViewModel
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -26,10 +28,20 @@ struct ContentView: View {
                 .tabItem{
                     Image(systemName: "magnifyingglass")
                 }
-            LoginView()
-                .tabItem{
-                    Image(systemName: "person")
+            Group {
+                if viewModel.userSession != nil {
+                    ProfileView()
+                        .tabItem{
+                            Image(systemName: "person")
+                        }
+                } else {
+                    LoginView()
+                        .tabItem{
+                            Image(systemName: "person")
+                        }
+                    
                 }
+            }
         }
         .tint(.blue)
         .onAppear(){
@@ -53,6 +65,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(AuthViewModel())
     }
 }
