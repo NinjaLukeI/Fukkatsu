@@ -20,8 +20,10 @@ struct FeedView: View {
     var body: some View {
         HStack{manga}
             .task{
+                if mangaFeed.loadState != .finished{
+                    await mangaFeed.populate(mangaID: manga.manga.id)
+                }
                 
-                await mangaFeed.populate(mangaID: manga.manga.id)
             }
         
         
@@ -34,6 +36,12 @@ struct FeedView: View {
                         NavigationLink(destination: ReaderView(chapter: item)){
                             
                             Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
+                                .task {
+                                    
+                                    if mangaFeed.hasReachedEnd(of: item) && mangaFeed.loadState == .finished{
+                                        await mangaFeed.fetchMore(mangaID: manga.manga.id)
+                                    }
+                                }
                         }.buttonStyle(.plain)
                     }
                     
