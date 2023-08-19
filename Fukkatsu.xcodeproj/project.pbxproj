@@ -22,7 +22,7 @@
 		31B28B2C2A8C142C006CBEB0 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31B28B2B2A8C142C006CBEB0 /* FirebaseDatabaseSwift */; };
 		31B28B2E2A8C142C006CBEB0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 31B28B2D2A8C142C006CBEB0 /* FirebaseFirestore */; };
 		31B28B302A8C142C006CBEB0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31B28B2F2A8C142C006CBEB0 /* FirebaseFirestoreSwift */; };
-		31B28B322A8C17E4006CBEB0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31B28B312A8C17E4006CBEB0 /* GoogleService-Info.plist */; };
+		31B28B3B2A910988006CBEB0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31B28B3A2A910987006CBEB0 /* GoogleService-Info.plist */; };
 		529AA9392949338500943089 /* MangaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529AA9382949338500943089 /* MangaListViewModel.swift */; };
 		52A0E83F293F818300E641B3 /* FukkatsuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E83E293F818300E641B3 /* FukkatsuApp.swift */; };
 		52A0E841293F818300E641B3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0E840293F818300E641B3 /* ContentView.swift */; };
@@ -75,7 +75,7 @@
 		31B28B132A8C122A006CBEB0 /* SwiftUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		31B28B142A8C122A006CBEB0 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		31B28B162A8C122A006CBEB0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		31B28B312A8C17E4006CBEB0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		31B28B3A2A910987006CBEB0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Fukkatsu/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		529AA9382949338500943089 /* MangaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListViewModel.swift; sourceTree = "<group>"; };
 		52A0E83B293F818300E641B3 /* Fukkatsu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fukkatsu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A0E83E293F818300E641B3 /* FukkatsuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FukkatsuApp.swift; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 		52A0E832293F818200E641B3 = {
 			isa = PBXGroup;
 			children = (
-				31B28B312A8C17E4006CBEB0 /* GoogleService-Info.plist */,
+				31B28B3A2A910987006CBEB0 /* GoogleService-Info.plist */,
 				52A0E83D293F818300E641B3 /* Fukkatsu */,
 				52A0E84E293F818600E641B3 /* FukkatsuTests */,
 				52A0E858293F818600E641B3 /* FukkatsuUITests */,
@@ -482,8 +482,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				52A0E846293F818600E641B3 /* Preview Assets.xcassets in Resources */,
+				31B28B3B2A910988006CBEB0 /* GoogleService-Info.plist in Resources */,
 				52A0E843293F818600E641B3 /* Assets.xcassets in Resources */,
-				31B28B322A8C17E4006CBEB0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
