@@ -9,13 +9,16 @@ import SwiftUI
 import Kingfisher
 
 
-
 struct ReaderView: View {
     
     let chapter:  ChapterInfo
     
     @StateObject private var reader = ReaderViewModel()
     @State var pages: [String] = []
+    @EnvironmentObject var mangaFeed: FeedViewModel
+    
+    @State var prevChapter = -1
+    @State var nextChapter = -1
     
     var body: some View {
         
@@ -24,10 +27,27 @@ struct ReaderView: View {
                 await reader.populate(chapterID: chapter.id)
                 
                 await pages = reader.constructPages()
+                
+                
+                //logic to get next and previous chapters
 
-            }
-            .hidden()
-            
+                if let chapter = mangaFeed.items.firstIndex(of: chapter){
+                    if chapter < mangaFeed.items.count{
+                        self.prevChapter = chapter-1
+                        self.nextChapter = chapter+1
+                    }
+                    else if chapter == mangaFeed.items.count{
+                        self.prevChapter = chapter-1
+                    }
+                    else if chapter == 1 {
+                        self.nextChapter = chapter+1
+                    }
+                }
+                    
+            }.hidden()
+        
+        
+        
         if reader.loading{
             
             ZStack{
@@ -46,9 +66,11 @@ struct ReaderView: View {
                     
                     VStack{
                         Page(page: page)
-                        
                     }
                     
+                    if(pages.last == page){
+                        
+                    }
                     
                 }
             }

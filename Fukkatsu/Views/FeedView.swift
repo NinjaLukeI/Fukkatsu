@@ -33,7 +33,7 @@ struct FeedView: View {
                     item in
                     HStack{
                         
-                        NavigationLink(destination: ReaderView(chapter: item)){
+                        NavigationLink(destination: ReaderView(chapter: item).environmentObject(mangaFeed)){
                             
                             Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
                                 .task {
@@ -43,6 +43,8 @@ struct FeedView: View {
                                     }
                                 }
                         }.buttonStyle(.plain)
+                            
+                            
                     }
                     
                     
@@ -53,6 +55,7 @@ struct FeedView: View {
                 print("the aggregate items are\(mangaFeed.aggitems)")
             }
         }
+        
         
     }
     
