@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct readerOverlay: View {
+    
+    
+    let chapter: ChapterInfo
+    @EnvironmentObject var mangaFeed: FeedViewModel
+    
+    @State private var mangaName = ""
+    @State private var chapterName = ""
+    
     var body: some View {
+        
         
         VStack{
             
@@ -18,11 +27,20 @@ struct readerOverlay: View {
                     .overlay(
                         HStack{
                             VStack(alignment: .leading){
-                                Text("manga name").font(.headline).foregroundColor(.white)
+                                
+                                //Displays name of the manga
+                                Text(chapter.relationships.first{
+                                    $0.type == "manga"
+                                }?.attributes?.title["en"] ?? "")
+                                .font(.headline)
+                                .fontWeight(.thin)
+                                .foregroundColor(.white)
                                     .lineLimit(1)
                                     
-                                    
-                                Text("Chapter Name").font(.caption).foregroundColor(.white)
+                                //Displays name of the chapter
+                                Text("Ch \(chapter.attributes.chapter ?? "") - \(chapter.attributes.title ?? "")" ).font(.caption2)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(.white)
                                     .lineLimit(1)
                             }
                             
@@ -35,6 +53,7 @@ struct readerOverlay: View {
                             
                     ).padding(.horizontal, 30.0)
                     .frame(width: proxy.size.width , height: 60)
+                    .foregroundColor(.black)
                     
             }
             
@@ -47,6 +66,8 @@ struct readerOverlay: View {
                         .background(.black)
                         .cornerRadius(15)
                         .foregroundColor(.white)
+                    
+                    
                         
                 }
                 
@@ -71,6 +92,9 @@ struct readerOverlay: View {
 
 struct readerOverlay_Previews: PreviewProvider {
     static var previews: some View {
-        readerOverlay()
+        
+        let dummy =  ChapterInfo(id: "1", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "s", attributes: attributes(title: ["s":"s"]))])
+        
+        readerOverlay(chapter: dummy)
     }
 }

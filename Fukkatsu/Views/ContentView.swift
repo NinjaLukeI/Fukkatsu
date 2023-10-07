@@ -16,31 +16,29 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        
-        TabView{
-            MangaListView()
-                .tabItem{
-                    Image(systemName: "book.closed")
-                }
-            SearchView()
-                .tabItem{
-                    Image(systemName: "magnifyingglass")
-                }
-        }
-        .tint(.blue)
-        .onAppear(){
-            if #available(iOS 15, *) {
-                let nav_appearance = UINavigationBarAppearance()
-                nav_appearance.configureWithOpaqueBackground()
-                UINavigationBar.appearance().standardAppearance = nav_appearance
-                
-                let tab_appearance = UITabBarAppearance()
-                tab_appearance.configureWithOpaqueBackground()
-                UITabBar.appearance().standardAppearance = tab_appearance
-
+            TabView{
+                MangaListView()
+                    .tabItem{
+                        Image(systemName: "book.closed")
+                    }
+                SearchView()
+                    .tabItem{
+                        Image(systemName: "magnifyingglass")
+                    }
             }
-        }
-        
+            .tint(.blue)
+            .onAppear(){
+                if #available(iOS 15, *) {
+                    let nav_appearance = UINavigationBarAppearance()
+                    nav_appearance.configureWithOpaqueBackground()
+                    UINavigationBar.appearance().standardAppearance = nav_appearance
+                    
+                    let tab_appearance = UITabBarAppearance()
+                    tab_appearance.configureWithOpaqueBackground()
+                    UITabBar.appearance().standardAppearance = tab_appearance
+
+                }
+            }
     }
     
 

@@ -24,6 +24,7 @@ struct FeedView: View {
                     await mangaFeed.populate(mangaID: manga.manga.id)
                 }
                 
+                
             }
         
         
@@ -33,7 +34,10 @@ struct FeedView: View {
                     item in
                     HStack{
                         
-                        NavigationLink(destination: ReaderView(chapter: item).environmentObject(mangaFeed)){
+                        NavigationLink(destination: ReaderView(chapter: item).navigationBarHidden(true)
+                            
+                            .environmentObject(mangaFeed)
+                        ){
                             
                             Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
                                 .task {
@@ -49,8 +53,11 @@ struct FeedView: View {
                     
                     
                 }
+                
+                
             }
             .task{
+                
                 print("current feed belongs to \(manga.manga.id)")
                 print("the aggregate items are\(mangaFeed.aggitems)")
             }

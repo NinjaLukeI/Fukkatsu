@@ -48,6 +48,7 @@ import OrderedDictionary
                     URLQueryItem(name: "translatedLanguage[]", value: "en" ),
                     URLQueryItem(name: "limit", value: "100" ),
                     URLQueryItem(name: "order[chapter]", value: "asc"),
+                    URLQueryItem(name: "includes[]", value: "manga"),
                 ]
                 
                 print(queryParams)
