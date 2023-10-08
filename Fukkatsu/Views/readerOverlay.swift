@@ -16,6 +16,8 @@ struct readerOverlay: View {
     @State private var mangaName = ""
     @State private var chapterName = ""
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         
         
@@ -46,7 +48,14 @@ struct readerOverlay: View {
                             
                             Spacer()
                             
-                            Text("Exit").foregroundColor(.red)
+                            
+                            Button(action: {
+                                dismiss()
+                            }){
+                                Image(systemName: "xmark")
+                                    .foregroundColor(.red)
+                            }
+                           
                         }.frame(width: proxy.size.width - 100)
                             
                             
