@@ -21,47 +21,53 @@ struct FeedView: View {
     
     var body: some View {
         
-        //shows the current manga
-        HStack{manga}
-            .task{
-                if mangaFeed.loadState != .finished{
-                    await mangaFeed.populate(mangaID: manga.manga.id)
+        VStack{
+            
+            //shows the current manga
+            HStack{manga}
+                .task{
+                    if mangaFeed.loadState != .finished{
+                        await mangaFeed.populate(mangaID: manga.manga.id)
+                    }
                 }
-            }
-        
-        //shows the list of chapters
-        ScrollView{
-            LazyVGrid(columns: columns, spacing: 10){
-                ForEach(mangaFeed.items){
-                    item in
-                    HStack{
-                        Button(action: {
-                            selectedChapter = item //used for getting the current button
-                            
-                        }) {
-                         Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
-                        }
-                        .buttonStyle(.plain)
-                        .task {
-                            if mangaFeed.hasReachedEnd(of: item) && mangaFeed.loadState == .finished{
-                                await mangaFeed.fetchMore(mangaID: manga.manga.id)
+            
+            
+            //shows the list of chapters
+            ScrollView{
+                LazyVGrid(columns: columns, spacing: 10){
+                    ForEach(mangaFeed.items){
+                        item in
+                        HStack{
+                            Button(action: {
+                                selectedChapter = item //used for getting the current button
+                                
+                            }) {
+                             Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
+                            }
+                            .buttonStyle(.plain)
+                            .task {
+                                if mangaFeed.hasReachedEnd(of: item) && mangaFeed.loadState == .finished{
+                                    await mangaFeed.fetchMore(mangaID: manga.manga.id)
+                                }
                             }
                         }
                     }
+                    //uses sheet to present chapter reader view
+                    .fullScreenCover(item: $selectedChapter){ chapter in
+                        ReaderView(chapter: chapter)
+                                .environmentObject(mangaFeed)
+                    }
+                    
                 }
-                //uses sheet to present chapter reader view
-                .fullScreenCover(item: $selectedChapter){ chapter in
-                    ReaderView(chapter: chapter)
-                            .environmentObject(mangaFeed)
+                .task{
+                    
+                    print("current feed belongs to \(manga.manga.id)")
+                    print("the aggregate items are\(mangaFeed.aggitems)")
                 }
-                
-            }
-            .task{
-                
-                print("current feed belongs to \(manga.manga.id)")
-                print("the aggregate items are\(mangaFeed.aggitems)")
             }
         }
+        
+        
         
         
     }
