@@ -11,6 +11,7 @@ struct FeedView: View {
     
     let manga: MangaView
     @State private var showingSheet = false
+    @State private var selectedChapter: ChapterInfo? = nil
     
     @StateObject private var mangaFeed = FeedViewModel()
     
@@ -35,7 +36,8 @@ struct FeedView: View {
                     item in
                     HStack{
                         Button(action: {
-                            showingSheet.toggle()
+                            selectedChapter = item //used for getting the current button
+                            
                         }) {
                          Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
                         }
@@ -45,17 +47,13 @@ struct FeedView: View {
                                 await mangaFeed.fetchMore(mangaID: manga.manga.id)
                             }
                         }
-                        //uses sheet to present a new view
-                        .fullScreenCover(isPresented: $showingSheet){
-                            ReaderView(chapter: item)
-                                .environmentObject(mangaFeed)
-                        }
-    
                     }
-                    
-                    
                 }
-                
+                //uses sheet to present chapter reader view
+                .fullScreenCover(item: $selectedChapter){ chapter in
+                    ReaderView(chapter: chapter)
+                            .environmentObject(mangaFeed)
+                }
                 
             }
             .task{
