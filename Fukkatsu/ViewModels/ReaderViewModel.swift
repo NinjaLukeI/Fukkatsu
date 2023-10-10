@@ -10,7 +10,7 @@ import Foundation
 @MainActor class ReaderViewModel: ObservableObject{
     
     @Published var chapters: [ChapterRoot] = []
-//    @Published var pages: [String] = []
+    @Published var pages: [String] = []
     @Published var loading = false
     
     
@@ -37,8 +37,9 @@ import Foundation
     
     func populate(chapterID: String) async {
         
-        let fetched = await fetchChapters(chapterID: chapterID)
-        chapters = fetched
+        chapters = await fetchChapters(chapterID: chapterID)
+        pages = await constructPages()
+        
 
     }
     

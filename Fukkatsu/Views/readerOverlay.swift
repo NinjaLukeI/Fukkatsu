@@ -35,13 +35,13 @@ struct readerOverlay: View {
                                     $0.type == "manga"
                                 }?.attributes?.title["en"] ?? "")
                                 .font(.headline)
-                                .fontWeight(.thin)
+                                .fontWeight(.medium)
                                 .foregroundColor(.white)
                                     .lineLimit(1)
                                     
                                 //Displays name of the chapter
                                 Text("Ch \(chapter.attributes.chapter ?? "") - \(chapter.attributes.title ?? "")" ).font(.caption2)
-                                    .fontWeight(.regular)
+                                    .fontWeight(.light)
                                     .foregroundColor(.white)
                                     .lineLimit(1)
                             }
@@ -102,7 +102,7 @@ struct readerOverlay: View {
 struct readerOverlay_Previews: PreviewProvider {
     static var previews: some View {
         
-        let dummy =  ChapterInfo(id: "1", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "s", attributes: attributes(title: ["s":"s"]))])
+        let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20TH Century Boys"]))])
         
         readerOverlay(chapter: dummy)
     }
