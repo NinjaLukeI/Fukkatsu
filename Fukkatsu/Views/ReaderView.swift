@@ -16,7 +16,7 @@ struct ReaderView: View {
     @StateObject private var reader = ReaderViewModel()
     @EnvironmentObject var mangaFeed: FeedViewModel
     
-    @State private var isTapped = true
+    @State private var isTapped = false
     @State private var selected: Int = 0 //used in tabview
     @State var currentPage = 1
     
@@ -41,7 +41,7 @@ struct ReaderView: View {
             }
             .overlay(alignment: .top){
                 if isTapped{
-                    readerOverlay(chapter: chapter, currentPage: $currentPage)
+                    readerOverlay(chapter: chapter, currentPage: $currentPage, totalPages: reader.pages.count)
                 }
             }
             .task{

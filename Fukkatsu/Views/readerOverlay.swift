@@ -14,6 +14,7 @@ struct readerOverlay: View {
     @EnvironmentObject var mangaFeed: FeedViewModel
     
     @Binding var currentPage: Int
+    @State var totalPages: Int
     
     @Environment(\.dismiss) var dismiss
     
@@ -67,7 +68,7 @@ struct readerOverlay: View {
             }
             
             HStack{
-                Text("\(currentPage) /")
+                Text("\(currentPage) / \(totalPages)")
 
             }
             
@@ -86,6 +87,6 @@ struct readerOverlay_Previews: PreviewProvider {
         
         
         
-        readerOverlay(chapter: dummy, currentPage: $currPage)
+        readerOverlay(chapter: dummy, currentPage: $currPage, totalPages: 10)
     }
 }
