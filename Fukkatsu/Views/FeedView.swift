@@ -42,7 +42,7 @@ struct FeedView: View {
                                 selectedChapter = item //used for getting the current button
                                 
                             }) {
-                             Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
+                                Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
                             }
                             .buttonStyle(.plain)
                             .task {
@@ -55,7 +55,7 @@ struct FeedView: View {
                     //uses sheet to present chapter reader view
                     .fullScreenCover(item: $selectedChapter){ chapter in
                         ReaderView(chapter: chapter)
-                                .environmentObject(mangaFeed)
+                            .environmentObject(mangaFeed)
                     }
                     
                 }
@@ -77,11 +77,13 @@ struct FeedView: View {
 struct MangaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let dummy = Manga(id: "id",
-                          type: "type",
-                          attributes: manga_Attributes(title: ["title": "title"], description: ["description": "description"], year: 2003, lastChapter: "2003"),
-                          relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "cover", authorName: "example author"))])
+        let dummy = Manga(id: "ad06790a-01e3-400c-a449-0ec152d6756a",
+                          type: "manga",
+                          attributes: manga_Attributes(title: ["en": "20th Century Boys"], description: ["description": "description"], year: 2003, lastChapter: "2003"),
+                          relationships: [manga_Relationships(id: "id", type: "type", attributes: relationship_Attributes(fileName: "b86017fe-3ec9-41d8-904c-c5f8031eb7de.jpg", authorName: "Urasawa Naoki"))])
         
-        FeedView(manga: MangaView(manga: dummy))
+        let url = "https://m.media-amazon.com/images/I/71Dj6z5rrzL._AC_UF894,1000_QL80_.jpg"
+        
+        FeedView(manga: MangaView(coverUrl: url, manga: dummy))
     }
 }

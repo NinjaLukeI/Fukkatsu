@@ -13,8 +13,7 @@ struct readerOverlay: View {
     let chapter: ChapterInfo
     @EnvironmentObject var mangaFeed: FeedViewModel
     
-    @State private var mangaName = ""
-    @State private var chapterName = ""
+    @Binding var currentPage: Int
     
     @Environment(\.dismiss) var dismiss
     
@@ -44,6 +43,7 @@ struct readerOverlay: View {
                                     .fontWeight(.light)
                                     .foregroundColor(.white)
                                     .lineLimit(1)
+                                
                             }
                             
                             Spacer()
@@ -67,29 +67,7 @@ struct readerOverlay: View {
             }
             
             HStack{
-                Button {
-                    
-                } label: {
-                    Image(systemName: "highlighter")
-                        .frame(width: 28, height: 28)
-                        .background(.black)
-                        .cornerRadius(15)
-                        .foregroundColor(.white)
-                    
-                    
-                        
-                }
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "highlighter")
-                        .frame(width: 28, height: 28)
-                        .background(.black)
-                        .cornerRadius(15)
-                        .foregroundColor(.white)
-                        
-                }
+                Text("\(currentPage) /")
 
             }
             
@@ -100,10 +78,14 @@ struct readerOverlay: View {
 }
 
 struct readerOverlay_Previews: PreviewProvider {
+    
+    @State static var currPage = 0
     static var previews: some View {
         
         let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20TH Century Boys"]))])
         
-        readerOverlay(chapter: dummy)
+        
+        
+        readerOverlay(chapter: dummy, currentPage: $currPage)
     }
 }

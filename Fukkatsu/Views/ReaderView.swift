@@ -17,15 +17,22 @@ struct ReaderView: View {
     @EnvironmentObject var mangaFeed: FeedViewModel
     
     @State private var isTapped = true
+    @State private var selected: Int = 0 //used in tabview
+    @State var currentPage = 1
     
     @State var prevChapter = -1
     @State var nextChapter = -1
     
     var body: some View {
         
-            TabView{
-                ForEach(reader.pages, id: \.self) { page in
-                    Page(page: page)
+        TabView(selection: $selected){
+                ForEach(Array(reader.pages.enumerated()), id: \.element) { index, element in
+                    Page(page: element)
+                        .tag(index)
+                        .onChange(of: selected){ val in
+                            currentPage = val + 1 //tracks changes in selected tab to display page numbers
+                        }
+                        
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: PageTabViewStyle.IndexDisplayMode.never))
@@ -34,7 +41,7 @@ struct ReaderView: View {
             }
             .overlay(alignment: .top){
                 if isTapped{
-                    readerOverlay(chapter: chapter)
+                    readerOverlay(chapter: chapter, currentPage: $currentPage)
                 }
             }
             .task{
