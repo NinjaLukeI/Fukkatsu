@@ -17,9 +17,8 @@ struct readerOverlay: View {
     @EnvironmentObject var reader: ReaderViewModel
     @EnvironmentObject var ch: ChapterIndex
     
-    
-    
     @Binding var currentPage: Int
+    @Binding var selected: Int
     @State var totalPages: Int
     
     @Environment(\.dismiss) var dismiss
@@ -82,7 +81,10 @@ struct readerOverlay: View {
                     
                     nextChapter = mangaFeed.items[ch.chIndex + 1]
                     ch.chIndex += 1
-                    Task {await reader.populate(chapterID: nextChapter!.id)}
+                    Task {await reader.populate(chapterID: nextChapter!.id)
+                        selected = 0
+                    }
+                    
                     
                 }){
                     Text("next chapter")
@@ -99,12 +101,15 @@ struct readerOverlay: View {
 struct readerOverlay_Previews: PreviewProvider {
     
     @State static var currPage = 0
+    @State static var selected = 0
+    
     static var previews: some View {
         
         let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20TH Century Boys"]))])
         
         
-        readerOverlay(chapter: dummy, currentPage: $currPage, totalPages: 10)
+        
+        readerOverlay(chapter: dummy, currentPage: $currPage, selected: $selected, totalPages: 10)
             .environmentObject(FeedViewModel())
             .environmentObject(ChapterIndex())
             .environmentObject(ReaderViewModel())
