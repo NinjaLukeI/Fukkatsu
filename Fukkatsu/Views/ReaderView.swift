@@ -11,17 +11,17 @@ import Kingfisher
 
 struct ReaderView: View {
     
-    let chapter:  ChapterInfo
+    @State var chapter:  ChapterInfo
     
     @StateObject private var reader = ReaderViewModel()
     @EnvironmentObject var mangaFeed: FeedViewModel
+    @EnvironmentObject var ch: ChapterIndex
     
     @State private var isTapped = false
     @State private var selected: Int = 0 //used in tabview
     @State var currentPage = 1
+    @State var totalPages = 0
     
-    @State var prevChapter = -1
-    @State var nextChapter = -1
     
     var body: some View {
         
@@ -42,6 +42,8 @@ struct ReaderView: View {
             .overlay(alignment: .top){
                 if isTapped{
                     readerOverlay(chapter: chapter, currentPage: $currentPage, totalPages: reader.pages.count)
+                        .environmentObject(reader)
+                    
                 }
             }
             .task{

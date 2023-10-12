@@ -10,8 +10,14 @@ import SwiftUI
 struct readerOverlay: View {
     
     
-    let chapter: ChapterInfo
+    @State var nextChapter: ChapterInfo?
+    
+    @State var chapter: ChapterInfo
     @EnvironmentObject var mangaFeed: FeedViewModel
+    @EnvironmentObject var reader: ReaderViewModel
+    @EnvironmentObject var ch: ChapterIndex
+    
+    
     
     @Binding var currentPage: Int
     @State var totalPages: Int
@@ -49,13 +55,15 @@ struct readerOverlay: View {
                             
                             Spacer()
                             
-                            
+                            //Dismisses panel window
                             Button(action: {
                                 dismiss()
                             }){
                                 Image(systemName: "xmark")
                                     .foregroundColor(.red)
                             }
+                            
+                            
                            
                         }.frame(width: proxy.size.width - 100)
                             
@@ -69,7 +77,17 @@ struct readerOverlay: View {
             
             HStack{
                 Text("\(currentPage) / \(totalPages)")
-
+                
+                Button(action: {
+                    
+                    nextChapter = mangaFeed.items[ch.chIndex + 1]
+                    ch.chIndex += 1
+                    Task {await reader.populate(chapterID: nextChapter!.id)}
+                    
+                }){
+                    Text("next chapter")
+                }
+                
             }
             
         }
@@ -86,7 +104,10 @@ struct readerOverlay_Previews: PreviewProvider {
         let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20TH Century Boys"]))])
         
         
-        
         readerOverlay(chapter: dummy, currentPage: $currPage, totalPages: 10)
+            .environmentObject(FeedViewModel())
+            .environmentObject(ChapterIndex())
+            .environmentObject(ReaderViewModel())
+        
     }
 }

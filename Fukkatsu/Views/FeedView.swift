@@ -7,11 +7,17 @@
 
 import SwiftUI
 
+class ChapterIndex: ObservableObject{
+    @Published var chIndex = 0
+}
+
 struct FeedView: View {
     
     let manga: MangaView
     @State private var showingSheet = false
     @State private var selectedChapter: ChapterInfo? = nil
+    
+    @StateObject private var ch = ChapterIndex() //class for sharing chapter index
     
     @StateObject private var mangaFeed = FeedViewModel()
     
@@ -35,11 +41,11 @@ struct FeedView: View {
             //shows the list of chapters
             ScrollView{
                 LazyVGrid(columns: columns, spacing: 10){
-                    ForEach(mangaFeed.items){
-                        item in
+                    ForEach(Array(mangaFeed.items.enumerated()), id: \.element){ index, item in
                         HStack{
                             Button(action: {
                                 selectedChapter = item //used for getting the current button
+                                ch.chIndex = index //used for getting index of given chapter
                                 
                             }) {
                                 Text("Chapter \(optionalCheck(value: item.attributes.chapter)): \(optionalCheck(value: item.attributes.title))")
@@ -56,6 +62,7 @@ struct FeedView: View {
                     .fullScreenCover(item: $selectedChapter){ chapter in
                         ReaderView(chapter: chapter)
                             .environmentObject(mangaFeed)
+                            .environmentObject(ch)
                     }
                     
                 }
