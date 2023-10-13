@@ -11,7 +11,7 @@ import Foundation
     
     @Published var chapters: [ChapterRoot] = []
     @Published var pages: [String] = []
-    @Published var loading = false
+    @Published var loading = true
     @Published var chapter: ChapterInfo?
     
     func fetchChapters(chapterID: String) async -> [ChapterRoot]{
@@ -70,7 +70,7 @@ import Foundation
     
     //Return ChapterInfo object from ID
     func fetchChapter(chapterID: String) async{
-        
+        self.loading = true
         
         let queryParams = [
                     URLQueryItem(name: "includes[]", value: "manga"),
@@ -91,6 +91,7 @@ import Foundation
             let (data, _) = try await URLSession.shared.data(from: url.url!)
             
             chapter = try JSONDecoder().decode(ChapterInfoReaderRoot.self, from: data).data
+            self.loading = false
             
         } catch {
             print(error)
