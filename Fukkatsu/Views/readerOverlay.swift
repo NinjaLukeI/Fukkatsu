@@ -12,7 +12,6 @@ struct readerOverlay: View {
     
     @State var nextChapter: ChapterInfo?
     
-    @State var chapter: ChapterInfo
     @EnvironmentObject var mangaFeed: FeedViewModel
     @EnvironmentObject var reader: ReaderViewModel
     @EnvironmentObject var ch: ChapterIndex
@@ -36,7 +35,7 @@ struct readerOverlay: View {
                             VStack(alignment: .leading){
                                 
                                 //Displays name of the manga
-                                Text(chapter.relationships.first{
+                                Text(reader.chapter?.relationships.first{
                                     $0.type == "manga"
                                 }?.attributes?.title["en"] ?? "")
                                 .font(.headline)
@@ -45,12 +44,13 @@ struct readerOverlay: View {
                                     .lineLimit(1)
                                     
                                 //Displays name of the chapter
-                                Text("Ch \(chapter.attributes.chapter ?? "") - \(chapter.attributes.title ?? "")" ).font(.caption2)
+                                Text("Ch \(reader.chapter?.attributes.chapter ?? "") - \(reader.chapter?.attributes.title ?? "")" ).font(.caption2)
                                     .fontWeight(.light)
                                     .foregroundColor(.white)
                                     .lineLimit(1)
                                 
                             }
+                            
                             
                             Spacer()
                             
@@ -75,7 +75,7 @@ struct readerOverlay: View {
             }
             
             HStack{
-                Text("\(currentPage) / \(totalPages)")
+                Text("\(selected + 1) / \(reader.pages.count)")
                 
                 Button(action: {
                     
@@ -105,11 +105,10 @@ struct readerOverlay_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "Chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Test", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20TH Century Boys"]))])
+      
         
         
-        
-        readerOverlay(chapter: dummy, currentPage: $currPage, selected: $selected, totalPages: 10)
+        readerOverlay(currentPage: $currPage, selected: $selected, totalPages: 10)
             .environmentObject(FeedViewModel())
             .environmentObject(ChapterIndex())
             .environmentObject(ReaderViewModel())

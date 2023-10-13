@@ -11,7 +11,7 @@ import Kingfisher
 
 struct ReaderView: View {
     
-    @State var chapter:  ChapterInfo
+    @State var chapterID = ""
     
     @StateObject private var reader = ReaderViewModel()
     @EnvironmentObject var mangaFeed: FeedViewModel
@@ -41,13 +41,13 @@ struct ReaderView: View {
             }
             .overlay(alignment: .top){
                 if isTapped{
-                    readerOverlay(chapter: chapter, currentPage: $currentPage, selected: $selected, totalPages: reader.pages.count)
+                    readerOverlay(currentPage: $currentPage, selected: $selected, totalPages: reader.pages.count)
                         .environmentObject(reader)
                     
                 }
             }
             .task{
-                await reader.populate(chapterID: chapter.id)
+                await reader.populate(chapterID: chapterID)
             }
         
     }
@@ -92,7 +92,7 @@ struct Reader_Previews: PreviewProvider {
         let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Friend", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20th Century Boys"]))])
                 
         
-        ReaderView(chapter: dummy)
+        ReaderView(chapterID: dummy.id)
         
     }
 }

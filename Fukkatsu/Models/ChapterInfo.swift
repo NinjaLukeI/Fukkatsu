@@ -9,7 +9,11 @@ import Foundation
 
 struct ChapterInfoRoot: Decodable {
     var data: [ChapterInfo]
-    var total: Int
+    var total: Int?
+}
+
+struct ChapterInfoReaderRoot: Decodable {
+    var data: ChapterInfo
 }
 
 struct ChapterInfo: Decodable, Identifiable, Hashable, Equatable{

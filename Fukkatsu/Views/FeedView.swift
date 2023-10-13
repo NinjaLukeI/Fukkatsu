@@ -60,7 +60,7 @@ struct FeedView: View {
                     }
                     //uses sheet to present chapter reader view
                     .fullScreenCover(item: $selectedChapter){ chapter in
-                        ReaderView(chapter: chapter)
+                        ReaderView(chapterID: chapter.id)
                             .environmentObject(mangaFeed)
                             .environmentObject(ch)
                     }

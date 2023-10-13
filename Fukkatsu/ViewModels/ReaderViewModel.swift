@@ -12,7 +12,7 @@ import Foundation
     @Published var chapters: [ChapterRoot] = []
     @Published var pages: [String] = []
     @Published var loading = false
-    
+    @Published var chapter: ChapterInfo?
     
     func fetchChapters(chapterID: String) async -> [ChapterRoot]{
         
@@ -39,7 +39,8 @@ import Foundation
         
         chapters = await fetchChapters(chapterID: chapterID)
         pages = await constructPages()
-        
+       await fetchChapter(chapterID: chapterID)
+       
 
     }
     
@@ -63,6 +64,36 @@ import Foundation
         }
         else{
             return []
+        }
+        
+    }
+    
+    //Return ChapterInfo object from ID
+    func fetchChapter(chapterID: String) async{
+        
+        
+        let queryParams = [
+                    URLQueryItem(name: "includes[]", value: "manga"),
+                ]
+        
+        var url = URLComponents()
+        url.scheme = "https"
+        url.host = "api.mangadex.org"
+        url.path = "/chapter/\(chapterID)"
+        url.queryItems = queryParams
+    
+        
+        var request = URLRequest(url: url.url!)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do{
+            let (data, _) = try await URLSession.shared.data(from: url.url!)
+            
+            chapter = try JSONDecoder().decode(ChapterInfoReaderRoot.self, from: data).data
+            
+        } catch {
+            print(error)
         }
         
     }

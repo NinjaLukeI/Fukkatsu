@@ -71,7 +71,7 @@ import OrderedDictionary
                     
                     self.isLoaded = true
                     self.items = manga.data
-                    self.count = manga.total
+                    self.count = manga.total ?? 0
                     removeDuplicateElements()
                     
                     print("the unsorted feed is: \(self.items)")
