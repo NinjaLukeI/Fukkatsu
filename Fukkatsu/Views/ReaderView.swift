@@ -92,8 +92,20 @@ struct Reader_Previews: PreviewProvider {
         
         let dummy =  ChapterInfo(id: "5df4596c-febd-492e-bf0d-d98f59fd3f2b", type: "chapter", attributes: chInfo_Attributes(volume: "1", chapter: "1", title: "Friend", publishAt: "2020-05-23", externalUrl: "" ), relationships: [chapter_Relationships(id: "s", type: "manga", attributes: attributes(title: ["en":"20th Century Boys"]))])
                 
+        let mangaID = "ad06790a-01e3-400c-a449-0ec152d6756a"
         
+        //providing the preview with mock environment objects for FVM and CI class
         ReaderView(chapterID: dummy.id)
+            .environmentObject({ () -> FeedViewModel in
+                let envObj = FeedViewModel()
+                Task{await envObj.populate(mangaID:mangaID)}
+                return envObj
+            }() )
+            .environmentObject({ () -> ChapterIndex in
+                let envObj = ChapterIndex()
+                envObj.chIndex = 0
+                return envObj
+            }() )
         
     }
 }
