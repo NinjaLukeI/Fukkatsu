@@ -11,6 +11,7 @@ struct readerOverlay: View {
     
     
     @State var nextChapter: ChapterInfo?
+    @State var prevChapter: ChapterInfo?
     
     @EnvironmentObject var mangaFeed: FeedViewModel
     @EnvironmentObject var reader: ReaderViewModel
@@ -75,20 +76,44 @@ struct readerOverlay: View {
             }
             
             HStack{
-                Text("\(selected + 1) / \(reader.pages.count)")
                 
-                Button(action: {
-                    
-                    nextChapter = mangaFeed.items[ch.chIndex + 1]
-                    ch.chIndex += 1
-                    Task {await reader.populate(chapterID: nextChapter!.id)
-                        selected = 0
+                //Logic for back button
+                if(mangaFeed.items.indices.contains(ch.chIndex - 1)){
+                    Button(action: {
+                        
+                        prevChapter = mangaFeed.items[ch.chIndex - 1]
+                        ch.chIndex -= 1
+                        Task {await reader.populate(chapterID: prevChapter!.id)
+                            selected = 0
+                        }
+                        
+                        
+                    }){
+                        Text("prev chapter")
                     }
-                    
-                    
-                }){
-                    Text("next chapter")
                 }
+                
+                Text("\(selected + 1) / \(reader.pages.count)")
+                    .padding(.horizontal)
+                
+                //logic for next chapter button
+                if(mangaFeed.items.indices.contains(ch.chIndex + 1)){
+                    Button(action: {
+                        
+                        nextChapter = mangaFeed.items[ch.chIndex + 1]
+                        ch.chIndex += 1
+                        Task {await reader.populate(chapterID: nextChapter!.id)
+                            selected = 0
+                        }
+                        
+                        
+                    }){
+                        Text("next chapter")
+                    }
+                }
+                
+                
+                
                 
             }
             

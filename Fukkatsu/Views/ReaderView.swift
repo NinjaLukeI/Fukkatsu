@@ -59,6 +59,10 @@ struct ReaderView: View {
 struct Page: View {
     
     let page: String
+    @State private var currentZoom = 0.0
+    @State private var totalZoom = 1.0
+    
+    @GestureState private var zoom = 1.0
     
     var body: some View{
         
@@ -76,6 +80,14 @@ struct Page: View {
             }
             .resizable()
             .scaledToFit()
+            .scaleEffect(zoom)
+            .gesture(
+                MagnificationGesture()
+                    .updating($zoom){ value, gestureState, transaction in
+                        gestureState = value.magnitude
+                    }
+                
+            )
         
         
     }
