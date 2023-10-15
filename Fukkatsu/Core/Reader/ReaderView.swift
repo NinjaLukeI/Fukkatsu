@@ -42,7 +42,7 @@ struct ReaderView: View {
             .overlay(alignment: .top){
                 if isTapped && reader.loading == false{
                     
-                    readerOverlay(currentPage: $currentPage, selected: $selected, totalPages: reader.pages.count)
+                    ReaderOverlay(currentPage: $currentPage, selected: $selected, totalPages: reader.pages.count)
                         .environmentObject(reader)
                     
                 }

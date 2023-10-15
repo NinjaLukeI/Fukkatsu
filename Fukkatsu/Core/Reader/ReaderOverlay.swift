@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct readerOverlay: View {
+struct ReaderOverlay: View {
     
     
     @State var nextChapter: ChapterInfo?
@@ -138,7 +138,7 @@ struct readerOverlay_Previews: PreviewProvider {
         let mangaID = "ad06790a-01e3-400c-a449-0ec152d6756a"
         
         //providing the preview provider mock environment objects
-        readerOverlay(currentPage: $currPage, selected: $selected, totalPages: 10)
+        ReaderOverlay(currentPage: $currPage, selected: $selected, totalPages: 10)
             .environmentObject({ () -> FeedViewModel in
                 let envObj = FeedViewModel()
                 Task{await envObj.populate(mangaID:mangaID)}
