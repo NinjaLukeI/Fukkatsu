@@ -23,6 +23,7 @@ struct FeedView: View {
     
     @StateObject private var mangaFeed = FeedViewModel()
     
+    @FetchRequest(sortDescriptors: []) var favourites: FetchedResults<Favourite>
     @Environment(\.managedObjectContext) var moc
     
     let columns = [
@@ -42,13 +43,45 @@ struct FeedView: View {
                 
                 Button(action: {
                     //save to moc
-                    let favourite = Favourite(context: moc)
                     
-                    favourite.id = manga.manga!.id
-                    favourite.title = manga.manga!.attributes.title["en"]
-                    favourite.author = manga.manga!.relationships[0].attributes?.authorName ?? ""
+                    //checks through favourites store if the current item already exists there
                     
-                    try? moc.save()
+                    if !favourites.isEmpty{
+                        print("sloppy")
+                        for item in favourites{
+                            if item.id == manga.manga!.id{
+                                
+                                print("DELETING!!!!")
+                                moc.delete(item)
+                                try? moc.save()
+                            }
+                            else{
+                                print("bark")
+                                let favourite = Favourite(context: moc)
+                                
+                                favourite.id = manga.manga!.id
+                                favourite.title = manga.manga!.attributes.title["en"]
+                                favourite.author = manga.manga!.relationships[0].attributes?.authorName ?? ""
+                                
+                                try? moc.save()
+                            }
+
+                        }
+                    }
+                    
+                    else{
+                        print("deez")
+                        let favourite = Favourite(context: moc)
+                        
+                        favourite.id = manga.manga!.id
+                        favourite.title = manga.manga!.attributes.title["en"]
+                        favourite.author = manga.manga!.relationships[0].attributes?.authorName ?? ""
+                        
+                        try? moc.save()
+                    }
+                    
+                    
+                    
                     
                 }){
                     Image(systemName: "heart")
@@ -89,7 +122,16 @@ struct FeedView: View {
                             .buttonStyle(.plain)
                             .task {
                                 if mangaFeed.hasReachedEnd(of: item) && mangaFeed.loadState == .finished{
-                                    await mangaFeed.fetchMore(mangaID: manga.manga!.id)
+                                    
+                                    //gets an id from either the mangaview object if it exists or the id
+                                    if let id = manga.id{
+                                        await mangaFeed.fetchMore(mangaID: id)
+                                    }
+                                    
+                                    if let id = manga.manga?.id{
+                                        await mangaFeed.fetchMore(mangaID: id)
+                                    }
+                                    
                                 }
                             }
                         }
