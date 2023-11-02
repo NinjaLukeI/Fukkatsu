@@ -16,6 +16,7 @@ struct FeedView: View {
     
     
     let manga: MangaView
+    @State var id: String = ""
     @State private var showingSheet = false
     @State private var selectedChapter: ChapterInfo? = nil
     
@@ -42,27 +43,32 @@ struct FeedView: View {
                 manga
                 
                 Button(action: {
-                    //save to moc
+    
+                    
+                    //again checking if the derived id is from the object or from the manga view in the object
+                    if manga.manga?.id != nil{
+                        self.id = manga.manga!.id
+                    }
+                    else{
+                        self.id = manga.id!
+                    }
                     
                     //checks through favourites store if the current item already exists there
-                    
                     if !favourites.isEmpty{
                         print("sloppy")
                         for item in favourites{
-                            if item.id == manga.manga!.id{
+                            if item.id == id{
                                 
                                 print("DELETING!!!!")
                                 moc.delete(item)
                                 try? moc.save()
+                                break
                             }
                             else{
                                 print("bark")
                                 let favourite = Favourite(context: moc)
                                 
-                                favourite.id = manga.manga!.id
-                                favourite.title = manga.manga!.attributes.title["en"]
-                                favourite.author = manga.manga!.relationships[0].attributes?.authorName ?? ""
-                                
+                                favourite.id = id
                                 try? moc.save()
                             }
 
@@ -73,9 +79,7 @@ struct FeedView: View {
                         print("deez")
                         let favourite = Favourite(context: moc)
                         
-                        favourite.id = manga.manga!.id
-                        favourite.title = manga.manga!.attributes.title["en"]
-                        favourite.author = manga.manga!.relationships[0].attributes?.authorName ?? ""
+                        favourite.id = id
                         
                         try? moc.save()
                     }
