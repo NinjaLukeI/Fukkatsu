@@ -70,9 +70,9 @@ struct SearchContent: View{
                     LazyVGrid(columns: columns, spacing: 10){
                         
                         ForEach(mangaSearch.items){ item in
-                            NavigationLink(destination: FeedView(manga: MangaView(manga: item))){
+                            NavigationLink(destination: FeedView(manga: MangaView(manga: item, id: nil))){
                                 
-                                MangaView(manga: item)
+                                MangaView(manga: item, id: nil)
                                     .task{
                                         if mangaSearch.hasReachedEnd(of: item) && !mangaSearch.isFetching && !mangaSearch.isLoading{
                                             

@@ -20,6 +20,7 @@ struct ReaderOverlay: View {
     @Binding var currentPage: Int
     @Binding var selected: Int
     @State var totalPages: Int
+        
     
     @Environment(\.dismiss) var dismiss
     
@@ -49,6 +50,9 @@ struct ReaderOverlay: View {
                                     .fontWeight(.light)
                                     .foregroundColor(.white)
                                     .lineLimit(1)
+                                    .refreshable {
+                                        
+                                    }
                                 
                             }
                             

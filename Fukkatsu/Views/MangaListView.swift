@@ -31,9 +31,9 @@ struct MangaListView: View {
                         LazyVGrid(columns: columns, spacing: 10){
                             
                             ForEach(mangaList.items){ item in
-                                NavigationLink(destination: FeedView(manga: MangaView(manga: item))){
+                                NavigationLink(destination: FeedView(manga: MangaView(manga: item, id: nil))){
                                     
-                                    MangaView(manga: item)
+                                    MangaView(manga: item, id: nil)
                                         .task{
                                             if mangaList.hasReachedEnd(of: item) && mangaList.viewState == .finished {
                                                 

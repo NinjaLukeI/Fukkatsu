@@ -25,6 +25,8 @@ struct ReaderView: View {
     
     var body: some View {
         
+    
+        
         TabView(selection: $selected){
                 ForEach(Array(reader.pages.enumerated()), id: \.element) { index, element in
                     Page(page: element)
@@ -34,7 +36,7 @@ struct ReaderView: View {
                         }
                         
                 }
-            }
+        }
             .tabViewStyle(.page(indexDisplayMode: PageTabViewStyle.IndexDisplayMode.never))
             .onTapGesture(){
                 isTapped.toggle() // when this is tapped the overlay for control will be toggled

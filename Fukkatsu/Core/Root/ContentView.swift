@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @EnvironmentObject var viewModel : AuthViewModel
     
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -42,6 +43,10 @@ struct ContentView: View {
                     
                 }
             }
+            Favourites()
+                .tabItem{
+                    Image(systemName: "heart")
+                }
         }
         .tint(.blue)
         .onAppear(){

@@ -11,6 +11,7 @@ import FirebaseCore
 @main
 struct FukkatsuApp: App {
     @StateObject var viewModel = AuthViewModel()
+    @StateObject private var dataController = DataController()
     
     init() {
         FirebaseApp.configure()
@@ -20,6 +21,7 @@ struct FukkatsuApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(viewModel)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

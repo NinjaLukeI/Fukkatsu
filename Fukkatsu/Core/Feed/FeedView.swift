@@ -13,6 +13,8 @@ class ChapterIndex: ObservableObject{
 
 struct FeedView: View {
     
+    
+    
     let manga: MangaView
     @State private var showingSheet = false
     @State private var selectedChapter: ChapterInfo? = nil
@@ -21,19 +23,53 @@ struct FeedView: View {
     
     @StateObject private var mangaFeed = FeedViewModel()
     
+    @Environment(\.managedObjectContext) var moc
+    
     let columns = [
         GridItem(.flexible())
     ]
+    
+    
     
     var body: some View {
         
         VStack{
             
             //shows the current manga
-            HStack{manga}
+            HStack{
+                
+                manga
+                
+                Button(action: {
+                    //save to moc
+                    let favourite = Favourite(context: moc)
+                    
+                    favourite.id = manga.manga!.id
+                    favourite.title = manga.manga!.attributes.title["en"]
+                    favourite.author = manga.manga!.relationships[0].attributes?.authorName ?? ""
+                    
+                    try? moc.save()
+                    
+                }){
+                    Image(systemName: "heart")
+                }
+                
+            }
                 .task{
                     if mangaFeed.loadState != .finished{
-                        await mangaFeed.populate(mangaID: manga.manga.id)
+                        
+                        // because loading from favouritesview and mangalistview is different
+                        // i need different ways to access the ID.
+                        // at some point i'll need to unify it so there's one way
+                        
+                        if let id = manga.id{
+                            await mangaFeed.populate(mangaID: id)
+                        }
+                        
+                        if let id = manga.manga?.id{
+                            await mangaFeed.populate(mangaID: id)
+                        }
+                        
                     }
                 }
             
@@ -53,7 +89,7 @@ struct FeedView: View {
                             .buttonStyle(.plain)
                             .task {
                                 if mangaFeed.hasReachedEnd(of: item) && mangaFeed.loadState == .finished{
-                                    await mangaFeed.fetchMore(mangaID: manga.manga.id)
+                                    await mangaFeed.fetchMore(mangaID: manga.manga!.id)
                                 }
                             }
                         }
@@ -66,11 +102,11 @@ struct FeedView: View {
                     }
                     
                 }
-                .task{
-                    
-                    print("current feed belongs to \(manga.manga.id)")
-                    print("the aggregate items are\(mangaFeed.aggitems)")
-                }
+//                .task{
+//
+//                    print("current feed belongs to \(manga.manga!.id)")
+//                    print("the aggregate items are\(mangaFeed.aggitems)")
+//                }
             }
         }
         
@@ -91,6 +127,6 @@ struct MangaDetailView_Previews: PreviewProvider {
         
         let url = "https://m.media-amazon.com/images/I/71Dj6z5rrzL._AC_UF894,1000_QL80_.jpg"
         
-        FeedView(manga: MangaView(coverUrl: url, manga: dummy))
+        FeedView(manga: MangaView(coverUrl: url, manga: dummy, id: nil))
     }
 }

@@ -12,6 +12,10 @@ struct MangaRoot: Decodable {
     let total: Int
 }
 
+struct MangaSingleRoot: Decodable{
+    let data: Manga
+}
+
 struct Manga: Decodable, Identifiable{
     
     let id: String
