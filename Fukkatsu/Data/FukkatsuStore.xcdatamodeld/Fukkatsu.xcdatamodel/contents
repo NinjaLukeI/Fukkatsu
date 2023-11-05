@@ -4,6 +4,11 @@
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Recent" representedClassName="Recent" syncable="YES" codeGenerationType="class">
         <attribute name="author" optional="YES" attributeType="String"/>
