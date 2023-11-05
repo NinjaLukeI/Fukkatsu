@@ -27,7 +27,9 @@ struct Favourites: View {
                         LazyVGrid(columns: columns, spacing: 10){
                             
                             ForEach(favourites){ item in
-                                NavigationLink(destination: FeedView(manga: MangaView(id: item.id!))){
+                                NavigationLink(destination: FeedView(manga: MangaView(id: item.id!))
+                                    .navigationBarTitleDisplayMode(.inline)
+                                ){
                                     
                                     MangaView(id: item.id!)
                                 }
@@ -37,8 +39,10 @@ struct Favourites: View {
                         }
                         .padding(.horizontal)
                     }
+                    .navigationBarTitle("Favourites")
+                    
                 
-            }
+        }
     }
 }
 
