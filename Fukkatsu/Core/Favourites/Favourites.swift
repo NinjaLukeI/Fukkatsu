@@ -17,6 +17,7 @@ struct Favourites: View {
     ]
     
     @FetchRequest(sortDescriptors: []) var favourites: FetchedResults<Favourite>
+    @State var localFavourites: [Favourite] = []
     
     var body: some View {
         
@@ -41,8 +42,8 @@ struct Favourites: View {
                     }
                     .navigationBarTitle("Favourites")
                     
-                
         }
+
     }
 }
 

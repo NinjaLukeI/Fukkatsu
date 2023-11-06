@@ -48,7 +48,6 @@ struct ContentView: View {
                     Image(systemName: "heart")
                 }
         }
-        .tint(.blue)
         .onAppear(){
             if #available(iOS 15, *) {
                 let nav_appearance = UINavigationBarAppearance()
@@ -58,9 +57,12 @@ struct ContentView: View {
                 let tab_appearance = UITabBarAppearance()
                 tab_appearance.configureWithOpaqueBackground()
                 UITabBar.appearance().standardAppearance = tab_appearance
+                UITabBar.appearance().scrollEdgeAppearance = tab_appearance
                 
             }
         }
+        .tint(.blue)
+        
         
         
         
