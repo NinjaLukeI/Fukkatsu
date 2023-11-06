@@ -43,7 +43,7 @@ struct ContentView: View {
                     
                 }
             }
-            Favourites()
+            FavouritesView()
                 .tabItem{
                     Image(systemName: "heart")
                 }

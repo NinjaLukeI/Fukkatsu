@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Favourites: View {
+struct FavouritesView: View {
     
     let columns = [
         GridItem(.flexible()),
@@ -49,6 +49,6 @@ struct Favourites: View {
 
 struct Favourites_Previews: PreviewProvider {
     static var previews: some View {
-        Favourites()
+        FavouritesView()
     }
 }
