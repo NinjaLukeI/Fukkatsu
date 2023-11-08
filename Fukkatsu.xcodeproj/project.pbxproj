@@ -47,6 +47,8 @@
 		94F3CF602A24F57E005E8677 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F3CF5F2A24F57E005E8677 /* ReaderView.swift */; };
 		94F3CF622A24F5A2005E8677 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F3CF612A24F5A2005E8677 /* ReaderViewModel.swift */; };
 		94F3CF642A24FC09005E8677 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F3CF632A24FC09005E8677 /* Chapter.swift */; };
+		94F606D72AFACB960057E293 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F606D62AFACB960057E293 /* FavoritesView.swift */; };
+		94F606DA2AFAD0650057E293 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F606D92AFAD0650057E293 /* FavouritesViewModel.swift */; };
 		94FB7E542A39100300A801B2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 94FB7E532A39100300A801B2 /* Kingfisher */; };
 		B0B9F2CCAA1180B7D77D8656 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B7E36405FE707F813809A /* User.swift */; };
 		C0C5DFE36DDCD1AB5FA0AEFF /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E2AFBFE41302EAA97A383B /* InputView.swift */; };
@@ -104,6 +106,8 @@
 		94F3CF5F2A24F57E005E8677 /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
 		94F3CF612A24F5A2005E8677 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
 		94F3CF632A24FC09005E8677 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		94F606D62AFACB960057E293 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		94F606D92AFAD0650057E293 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		997228542934172788A4BD7E /* SwiftUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		AD78D1432E18AAAEB6525743 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C99DDBBDF505DE922C706F77 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -336,9 +340,19 @@
 		94DA81312AF2B17F00E129F9 /* Favourites */ = {
 			isa = PBXGroup;
 			children = (
+				94F606D82AFAD0220057E293 /* ViewModel */,
 				94DA81322AF2B22A00E129F9 /* FavouritesView.swift */,
+				94F606D62AFACB960057E293 /* FavoritesView.swift */,
 			);
 			path = Favourites;
+			sourceTree = "<group>";
+		};
+		94F606D82AFAD0220057E293 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				94F606D92AFAD0650057E293 /* FavouritesViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		96160E5B572E103538013995 /* ViewModel */ = {
@@ -541,6 +555,7 @@
 				94CB34442A449E630098F85B /* MangaAggregate.swift in Sources */,
 				94F3CF602A24F57E005E8677 /* ReaderView.swift in Sources */,
 				52A0E841293F818300E641B3 /* ContentView.swift in Sources */,
+				94F606DA2AFAD0650057E293 /* FavouritesViewModel.swift in Sources */,
 				52B2E1322947BD9800D2E7FA /* Manga.swift in Sources */,
 				52A0E83F293F818300E641B3 /* FukkatsuApp.swift in Sources */,
 				94DA81302AF25C5700E129F9 /* FukkatsuStore.xcdatamodeld in Sources */,
@@ -556,6 +571,7 @@
 				94DA81332AF2B22A00E129F9 /* FavouritesView.swift in Sources */,
 				52A0E86F293F91C600E641B3 /* MangaListView.swift in Sources */,
 				9409C2482967224E00D583B9 /* MangaViewModel.swift in Sources */,
+				94F606D72AFACB960057E293 /* FavoritesView.swift in Sources */,
 				B0B9F2CCAA1180B7D77D8656 /* User.swift in Sources */,
 				20BEB59CE8A3FF1E68C5F4AB /* AuthViewModel.swift in Sources */,
 				50FBD87FFEE5826A6E9A4064 /* SwiftUIView.swift in Sources */,
