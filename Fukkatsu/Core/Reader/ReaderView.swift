@@ -22,6 +22,7 @@ struct ReaderView: View {
     @State var currentPage = 1
     @State var totalPages = 0
     
+    
     @FetchRequest(sortDescriptors: []) var recents: FetchedResults<Recent>
     @Environment(\.managedObjectContext) var moc
     
@@ -38,11 +39,29 @@ struct ReaderView: View {
                             currentPage = val + 1 //tracks changes in selected tab to display page numbers
                             
                             for item in recents{
-                                if item.chapter_id == chapterID{
+                                if item.chapter_id == reader.chapterID{
                                     item.page_num = Int16(val)
                                     try? moc.save()
                                 }
                             }
+                        }
+                        .onAppear{
+                            
+                            for item in recents{
+                                if item.chapter_id == reader.chapterID{
+                                    selected = Int(item.page_num)
+                                }
+                            }
+                            
+                            if !recents.contains(where: {$0.chapter_id == reader.chapterID}){
+                                let recent = Recent(context: moc)
+                                
+                                recent.chapter_id = reader.chapterID
+                                recent.manga_id = reader.chapter?.relationships.first(where: {$0.type == "manga"})?.id
+                                
+                                try? moc.save()
+                            }
+                        
                         }
                         
                 }
@@ -61,34 +80,20 @@ struct ReaderView: View {
             }
             .task{
                 await reader.populate(chapterID: chapterID)
-            }
-            .onAppear{
-                
-                if !recents.contains(where: {$0.chapter_id == chapterID}){
-                    let recent = Recent(context: moc)
-                    
-                    recent.chapter_id = chapterID
-                    recent.manga_id = reader.chapter?.relationships.first(where: {$0.type == "manga"})?.id
-                    
-                    try? moc.save()
-                }
-                
-                
                 
                 
                 if !recents.isEmpty{
                     for item in recents{
                         
                         //if the item in recents matches the current chapter
-                        if item.chapter_id == chapterID{
+                        if item.chapter_id == reader.chapterID{
                             
                             item.recently_read = true
-                            selected = Int(item.page_num)
-//                            item.page_num = Int16(selected)
+//                            selected = Int(item.page_num)
                             try? moc.save()
                         }
                         
-                        else if item.chapter_id != chapterID && item.recently_read == true{
+                        else if item.chapter_id != reader.chapterID && item.recently_read == true{
                             
                             item.recently_read = false
                             
@@ -96,6 +101,16 @@ struct ReaderView: View {
                     }
                 }
                 
+                else{
+                    
+                    let recent = Recent(context: moc)
+                    
+                    recent.chapter_id = reader.chapterID
+                    recent.manga_id = reader.chapter?.relationships.first(where: {$0.type == "manga"})?.id
+                    
+                    try? moc.save()
+                    
+                }
                 
             }
         
