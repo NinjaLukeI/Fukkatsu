@@ -11,8 +11,9 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Recent" representedClassName="Recent" syncable="YES" codeGenerationType="class">
-        <attribute name="author" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="chapter_id" optional="YES" attributeType="String"/>
+        <attribute name="manga_id" optional="YES" attributeType="String"/>
+        <attribute name="page_num" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recently_read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
 </model>

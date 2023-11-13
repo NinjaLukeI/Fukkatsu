@@ -22,6 +22,9 @@ struct ReaderView: View {
     @State var currentPage = 1
     @State var totalPages = 0
     
+    @FetchRequest(sortDescriptors: []) var recents: FetchedResults<Recent>
+    @Environment(\.managedObjectContext) var moc
+    
     
     var body: some View {
         
@@ -33,6 +36,13 @@ struct ReaderView: View {
                         .tag(index)
                         .onChange(of: selected){ val in
                             currentPage = val + 1 //tracks changes in selected tab to display page numbers
+                            
+                            for item in recents{
+                                if item.chapter_id == chapterID{
+                                    item.page_num = Int16(val)
+                                    try? moc.save()
+                                }
+                            }
                         }
                         
                 }
@@ -51,6 +61,42 @@ struct ReaderView: View {
             }
             .task{
                 await reader.populate(chapterID: chapterID)
+            }
+            .onAppear{
+                
+                if !recents.contains(where: {$0.chapter_id == chapterID}){
+                    let recent = Recent(context: moc)
+                    
+                    recent.chapter_id = chapterID
+                    recent.manga_id = reader.chapter?.relationships.first(where: {$0.type == "manga"})?.id
+                    
+                    try? moc.save()
+                }
+                
+                
+                
+                
+                if !recents.isEmpty{
+                    for item in recents{
+                        
+                        //if the item in recents matches the current chapter
+                        if item.chapter_id == chapterID{
+                            
+                            item.recently_read = true
+                            selected = Int(item.page_num)
+//                            item.page_num = Int16(selected)
+                            try? moc.save()
+                        }
+                        
+                        else if item.chapter_id != chapterID && item.recently_read == true{
+                            
+                            item.recently_read = false
+                            
+                        }
+                    }
+                }
+                
+                
             }
         
     }
