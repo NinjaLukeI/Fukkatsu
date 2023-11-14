@@ -28,8 +28,9 @@ struct ReaderView: View {
     
     
     var body: some View {
-        
     
+        
+        
         
         TabView(selection: $selected){
                 ForEach(Array(reader.pages.enumerated()), id: \.element) { index, element in
