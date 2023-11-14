@@ -13,6 +13,7 @@ import Foundation
     @Published var pages: [String] = []
     @Published var loading = true
     @Published var chapter: ChapterInfo?
+    var chapterID: String = ""
     
     func fetchChapters(chapterID: String) async -> [ChapterRoot]{
         
@@ -37,9 +38,11 @@ import Foundation
     
     func populate(chapterID: String) async {
         
+        self.chapterID = chapterID
         chapters = await fetchChapters(chapterID: chapterID)
         pages = await constructPages()
-       await fetchChapter(chapterID: chapterID)
+        await fetchChapter(chapterID: chapterID)
+        
        
 
     }

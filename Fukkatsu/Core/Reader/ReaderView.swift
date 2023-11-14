@@ -23,7 +23,14 @@ struct ReaderView: View {
     @State var totalPages = 0
     
     
+    @FetchRequest(sortDescriptors: []) var recents: FetchedResults<Recent>
+    @Environment(\.managedObjectContext) var moc
+    
+    
     var body: some View {
+    
+        
+        
         
         TabView(selection: $selected){
                 ForEach(Array(reader.pages.enumerated()), id: \.element) { index, element in
@@ -31,10 +38,35 @@ struct ReaderView: View {
                         .tag(index)
                         .onChange(of: selected){ val in
                             currentPage = val + 1 //tracks changes in selected tab to display page numbers
+                            
+                            for item in recents{
+                                if item.chapter_id == reader.chapterID{
+                                    item.page_num = Int16(val)
+                                    try? moc.save()
+                                }
+                            }
+                        }
+                        .onAppear{
+                            
+                            for item in recents{
+                                if item.chapter_id == reader.chapterID{
+                                    selected = Int(item.page_num)
+                                }
+                            }
+                            
+                            if !recents.contains(where: {$0.chapter_id == reader.chapterID}){
+                                let recent = Recent(context: moc)
+                                
+                                recent.chapter_id = reader.chapterID
+                                recent.manga_id = reader.chapter?.relationships.first(where: {$0.type == "manga"})?.id
+                                
+                                try? moc.save()
+                            }
+                        
                         }
                         
                 }
-            }
+        }
             .tabViewStyle(.page(indexDisplayMode: PageTabViewStyle.IndexDisplayMode.never))
             .onTapGesture(){
                 isTapped.toggle() // when this is tapped the overlay for control will be toggled
@@ -49,6 +81,38 @@ struct ReaderView: View {
             }
             .task{
                 await reader.populate(chapterID: chapterID)
+                
+                
+                if !recents.isEmpty{
+                    for item in recents{
+                        
+                        //if the item in recents matches the current chapter
+                        if item.chapter_id == reader.chapterID{
+                            
+                            item.recently_read = true
+//                            selected = Int(item.page_num)
+                            try? moc.save()
+                        }
+                        
+                        else if item.chapter_id != reader.chapterID && item.recently_read == true{
+                            
+                            item.recently_read = false
+                            
+                        }
+                    }
+                }
+                
+                else{
+                    
+                    let recent = Recent(context: moc)
+                    
+                    recent.chapter_id = reader.chapterID
+                    recent.manga_id = reader.chapter?.relationships.first(where: {$0.type == "manga"})?.id
+                    
+                    try? moc.save()
+                    
+                }
+                
             }
         
     }
