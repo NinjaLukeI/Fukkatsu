@@ -110,6 +110,7 @@ import Foundation
             let manga = try JSONDecoder().decode(MangaRoot.self, from: data)
             
             items += manga.data
+            items = removeDuplicateElements(manga: items)
         } catch {
             print(error)
         }
@@ -129,5 +130,6 @@ import Foundation
         return false
         
     }
+    
     
 }

@@ -1,19 +1,24 @@
 //
-//  Reader.swift
+//  DownloadManager.swift
 //  Fukkatsu
 //
-//  Created by Luke Ibeachum on 29/05/2023.
+//  Created by Luke Ibeachum on 25/11/2023.
 //
 
 import Foundation
+import SwiftUI
+import Kingfisher
 
-@MainActor class ReaderViewModel: ObservableObject{
+@MainActor class DownloadManager: ObservableObject{
     
     @Published var chapters: [ChapterRoot] = []
     @Published var pages: [String] = []
     @Published var loading = true
     @Published var chapter: ChapterInfo?
     var chapterID: String = ""
+    
+    @FetchRequest(sortDescriptors: []) var downloads: FetchedResults<Download>
+    @Environment(\.managedObjectContext) var moc
     
     func fetchChapters(chapterID: String) async -> [ChapterRoot]{
         
@@ -98,6 +103,26 @@ import Foundation
             
         } catch {
             print(error)
+        }
+        
+    }
+    
+    func downloadChapters(){
+        
+        for page in pages{
+            
+            let url = URL(string: page)
+            let downloader = ImageDownloader.default
+            downloader.downloadImage(with: url!) { result in
+                switch result {
+                case .success(let value):
+                    print(value.image)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+            
         }
         
     }

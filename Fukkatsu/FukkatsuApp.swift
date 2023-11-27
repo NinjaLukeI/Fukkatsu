@@ -10,7 +10,7 @@ import FirebaseCore
 
 @main
 struct FukkatsuApp: App {
-    @StateObject var viewModel = AuthViewModel()
+    @StateObject var authViewModel = AuthViewModel()
     @StateObject private var dataController = DataController()
     
     init() {
@@ -20,7 +20,7 @@ struct FukkatsuApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(viewModel)
+                .environmentObject(authViewModel)
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

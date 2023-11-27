@@ -16,6 +16,8 @@ struct MangaView: View {
     @State var manga: Manga?
     let id: String?
     
+    @State private var animate = false
+    
     
     var body: some View {
         
@@ -28,6 +30,8 @@ struct MangaView: View {
                     .placeholder{
                         ProgressView()
                     }
+                    .cacheOriginalImage()
+                    .loadDiskFileSynchronously()
                     .retry(maxCount: 3, interval: .seconds(5))
                     .onSuccess{ r in
                         print("Image obtained successfully: \(r)")
@@ -35,9 +39,12 @@ struct MangaView: View {
                     .onFailure{ e in
                         print("failure: \(e)")
                     }
+                    .fade(duration: 0.2)
                     .resizable()
                     .shadow(radius: 3)
                     .frame(width: 110.0, height: 160.0)
+                    
+                    
                 
                 Text((manga!.attributes.title.first?.value ?? manga!.attributes.title["en"])!)
     //            Text("hi")
@@ -56,8 +63,12 @@ struct MangaView: View {
                     .allowsTightening(true)
                     .lineLimit(1)
             }
+            
  
         }
+        .opacity(animate ? 1 : 0)
+        .animation(.easeIn, value: animate)
+        .onAppear{animate = true}
         .frame(width: 101, height: 200)
         .task {
             
