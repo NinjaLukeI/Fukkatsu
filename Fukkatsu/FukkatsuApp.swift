@@ -11,7 +11,8 @@ import FirebaseCore
 @main
 struct FukkatsuApp: App {
     @StateObject var authViewModel = AuthViewModel()
-    @StateObject private var dataController = DataController()
+    @StateObject var dataController = DataController()
+    @StateObject var downloadManager = DownloadManager()
     
     init() {
         FirebaseApp.configure()
@@ -21,6 +22,7 @@ struct FukkatsuApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(authViewModel)
+                .environmentObject(downloadManager)
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

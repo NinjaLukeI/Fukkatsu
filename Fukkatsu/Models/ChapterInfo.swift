@@ -47,7 +47,7 @@ struct chInfo_Attributes: Decodable{
 
 struct chapter_Relationships: Decodable{
     let id: String
-    let type: String
+    let type: String //options will typically be "scanlation_group" or "manga"
     
     let attributes: attributes?
 }

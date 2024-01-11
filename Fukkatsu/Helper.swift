@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+
 func optionalCheck(value: String?) -> String{
     if let data = value{
         return data
@@ -83,3 +84,29 @@ extension Binding {
     }
 }
 
+func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+}
+
+//helper functions for getting int from index
+extension StringProtocol {
+    func distance(of element: Element) -> Int? { firstIndex(of: element)?.distance(in: self) }
+    func distance<S: StringProtocol>(of string: S) -> Int? { range(of: string)?.lowerBound.distance(in: self) }
+}
+
+//helper functions for getting int from index
+extension Collection {
+    func distance(to index: Index) -> Int { distance(from: startIndex, to: index) }
+}
+
+//helper functions for getting int from index
+extension String.Index {
+    func distance<S: StringProtocol>(in string: S) -> Int { string.distance(to: self) }
+}
+
+//function for removing from store
+//func removeFromStore(fetchedResults: FetchedResults<> ){
+//    
+//}

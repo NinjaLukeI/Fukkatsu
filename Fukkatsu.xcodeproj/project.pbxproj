@@ -99,6 +99,7 @@
 		946F9F132964F1FA001AB55A /* MangaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaView.swift; sourceTree = "<group>"; };
 		948750742B1221F200B5818E /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		94CB34432A449E630098F85B /* MangaAggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaAggregate.swift; sourceTree = "<group>"; };
+		94D5BF942B158ECB004F7752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94DA812C2AF25B6E00E129F9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		94DA812F2AF25C5700E129F9 /* Fukkatsu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fukkatsu.xcdatamodel; sourceTree = "<group>"; };
 		94DA81322AF2B22A00E129F9 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
@@ -257,6 +258,7 @@
 		52A0E83D293F818300E641B3 /* Fukkatsu */ = {
 			isa = PBXGroup;
 			children = (
+				94D5BF942B158ECB004F7752 /* Info.plist */,
 				94DA81282AF038F400E129F9 /* Data */,
 				94203CAD2A3D589A00CC8633 /* ViewModels */,
 				529AA9372949331B00943089 /* Models */,
@@ -771,6 +773,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Fukkatsu/FukkatsuRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fukkatsu/Preview Content\"";

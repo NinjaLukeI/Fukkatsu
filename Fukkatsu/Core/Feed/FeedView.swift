@@ -21,6 +21,7 @@ struct FeedView: View {
     @State private var selectedChapter: ChapterInfo? = nil
     
     @StateObject private var ch = ChapterIndex() //class for sharing chapter index
+    @StateObject private var downloadManager = DownloadManager()
     
     @StateObject private var mangaFeed = FeedViewModel()
     
@@ -138,6 +139,30 @@ struct FeedView: View {
                                     
                                 }
                             }
+                            
+                            Button(action: {
+                                
+                                
+                                Task{
+                                    await downloadManager.populate(chapterID: item.id)
+                                }
+                                
+                            }) {
+                                if Int(downloadManager.progress) != downloadManager.pages.count{
+                                    ProgressView(value: downloadManager.progress, total: Double(downloadManager.pages.count))
+                                        .progressViewStyle(.circular)
+                                    
+                                    Text("\(downloadManager.pages.count)")
+                                        .task{print("\(downloadManager.pages.count)")
+}
+                                    
+                                }
+                                else{
+                                    Image(systemName: "square.and.arrow.down")
+                                        .frame(width: 15, height: 15)
+                                }
+                            }
+                            
                         }
                     }
                     //uses sheet to present chapter reader view
